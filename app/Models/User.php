@@ -27,6 +27,7 @@ class User extends Authenticatable
         'state',
         'engineer_code',
         'address',
+        'role',
     ];
 
     /**
@@ -50,5 +51,29 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * Check if user is admin.
+     */
+    public function isAdmin(): bool
+    {
+        return $this->role === 'admin';
+    }
+
+    /**
+     * Get the user's cart items.
+     */
+    public function cartItems()
+    {
+        return $this->hasMany(CartItem::class);
+    }
+
+    /**
+     * Get the user's wishlist items.
+     */
+    public function wishlistItems()
+    {
+        return $this->hasMany(WishlistItem::class);
     }
 }
