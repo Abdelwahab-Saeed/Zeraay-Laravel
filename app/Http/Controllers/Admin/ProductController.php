@@ -41,6 +41,32 @@ class ProductController extends Controller
     }
 
     /**
+     * Display stock of all products.
+     */
+    public function stock(Request $request)
+    {
+        $query = Product::with('category');
+
+        // Search by name
+        if ($request->filled('search')) {
+            $query->where('name', 'like', '%' . $request->search . '%');
+        }
+
+        // Filter by stock level
+        if ($request->filled('level')) {
+            if ($request->level === 'out') {
+                $query->where('stock', '<=', 0);
+            } elseif ($request->level === 'low') {
+                $query->where('stock', '>', 0)->where('stock', '<=', 5);
+            }
+        }
+
+        $products = $query->latest()->paginate(15);
+        
+        return view('admin.products.stock', compact('products'));
+    }
+
+    /**
      * Show the form for creating a new product.
      */
     public function create()

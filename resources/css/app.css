@@ -6,6 +6,51 @@
 @source '../**/*.js';
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    --font-sans: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
+    
+    --color-primary-start: #1e3a8a;
+    --color-primary-end: #7c3aed;
+    --color-secondary-start: #0d9488;
+    --color-secondary-end: #06b6d4;
+    --color-success-start: #059669;
+    --color-success-end: #10b981;
+    --color-warning-start: #d97706;
+    --color-warning-end: #f59e0b;
+    --color-danger-start: #e11d48;
+    --color-danger-end: #f43f5e;
+}
+
+@layer utilities {
+    .bg-glass {
+        @apply bg-white/10 backdrop-blur-md border border-white/20;
+    }
+    
+    .bg-sidebar-gradient {
+        background: linear-gradient(180deg, var(--color-primary-start) 0%, #0f172a 100%);
+    }
+    
+    .card-gradient-primary {
+        background: linear-gradient(135deg, var(--color-primary-start) 0%, var(--color-primary-end) 100%);
+    }
+    
+    .card-gradient-success {
+        background: linear-gradient(135deg, var(--color-success-start) 0%, var(--color-success-end) 100%);
+    }
+    
+    .card-gradient-warning {
+        background: linear-gradient(135deg, var(--color-warning-start) 0%, var(--color-warning-end) 100%);
+    }
+    
+    .card-gradient-danger {
+        background: linear-gradient(135deg, var(--color-danger-start) 0%, var(--color-danger-end) 100%);
+    }
+    
+    .card-gradient-info {
+        background: linear-gradient(135deg, var(--color-secondary-start) 0%, var(--color-secondary-end) 100%);
+    }
+
+    .transition-all-300 {
+        @apply transition-all duration-300 ease-in-out;
+    }
 }

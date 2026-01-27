@@ -76,4 +76,22 @@ class User extends Authenticatable
     {
         return $this->hasMany(WishlistItem::class);
     }
+
+    /**
+     * Get the user's orders.
+     */
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    /**
+     * Coupons used by the user.
+     */
+    public function usedCoupons()
+    {
+        return $this->belongsToMany(Coupon::class, 'user_coupon')
+            ->withPivot('used_at')
+            ->withTimestamps();
+    }
 }

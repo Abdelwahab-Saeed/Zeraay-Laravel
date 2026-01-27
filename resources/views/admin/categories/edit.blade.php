@@ -3,71 +3,94 @@
 @section('title', 'تعديل الفئة')
 
 @section('content')
-<div class="row">
-    <div class="col-md-8 mx-auto">
-        <div class="card">
-            <div class="card-header">
-                <h4>تعديل الفئة: {{ $category->name }}</h4>
-            </div>
-            <div class="card-body">
-                <form action="{{ route('admin.categories.update', $category) }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    @method('PUT')
+<div class="max-w-3xl mx-auto animate-fade-in">
+    <div class="mb-8">
+        <a href="{{ route('admin.categories.index') }}" class="text-slate-500 hover:text-primary-start transition-colors mb-4 inline-flex items-center text-sm font-medium">
+            <i class="fas fa-arrow-right ml-2 text-xs"></i> العودة للفئات
+        </a>
+        <h2 class="text-3xl font-bold text-slate-800">تعديل الفئة: {{ $category->name }}</h2>
+    </div>
 
-                    <div class="mb-3">
-                        <label for="name" class="form-label">اسم الفئة <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control @error('name') is-invalid @enderror" 
-                               id="name" name="name" value="{{ old('name', $category->name) }}">
-                        @error('name')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
+    <div class="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden">
+        <form action="{{ route('admin.categories.update', $category) }}" method="POST" novalidate enctype="multipart/form-data" class="p-8">
+            @csrf
+            @method('PUT')
 
-                    <div class="mb-3">
-                        <label for="description" class="form-label">الوصف</label>
-                        <textarea class="form-control @error('description') is-invalid @enderror" 
-                                  id="description" name="description" rows="4">{{ old('description', $category->description) }}</textarea>
-                        @error('description')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
+            <div class="space-y-6">
+                <!-- Name -->
+                <div>
+                    <label for="name" class="block text-sm font-bold text-slate-700 mb-2">اسم الفئة <span class="text-rose-500">*</span></label>
+                    <input type="text" 
+                           class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary-start focus:ring-4 focus:ring-primary-start/10 transition-all-300 outline-none @error('name') border-rose-500 ring-rose-500/10 @enderror" 
+                           id="name" name="name" value="{{ old('name', $category->name) }}">
+                    @error('name')
+                        <p class="mt-1 text-xs text-rose-500 font-medium">{{ $message }}</p>
+                    @enderror
+                </div>
 
-                    <div class="mb-3">
-                        <label for="image" class="form-label">الصورة</label>
+                <!-- Description -->
+                <div>
+                    <label for="description" class="block text-sm font-bold text-slate-700 mb-2">الوصف</label>
+                    <textarea class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary-start focus:ring-4 focus:ring-primary-start/10 transition-all-300 outline-none @error('description') border-rose-500 ring-rose-500/10 @enderror" 
+                              id="description" name="description" rows="4">{{ old('description', $category->description) }}</textarea>
+                    @error('description')
+                        <p class="mt-1 text-xs text-rose-500 font-medium">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Image -->
+                <div>
+                    <label for="image" class="block text-sm font-bold text-slate-700 mb-2">الصورة</label>
+                    <div class="flex flex-col md:flex-row gap-6">
                         @if($category->image)
-                            <div class="mb-2">
-                                <img src="{{ $category->image_url }}" alt="{{ $category->name }}" 
-                                     style="max-width: 200px; border-radius: 5px;">
+                            <div class="relative group">
+                                <div class="w-32 h-32 rounded-2xl overflow-hidden shadow-lg ring-4 ring-slate-50 group-hover:ring-primary-start transition-all">
+                                    <img src="{{ $category->image_url }}" alt="{{ $category->name }}" class="w-full h-full object-cover">
+                                </div>
+                                <div class="absolute -top-2 -right-2 bg-emerald-500 text-white p-1 rounded-full shadow-lg border-2 border-white">
+                                    <i class="fas fa-check text-[10px]"></i>
+                                </div>
+                                <p class="text-[10px] text-center text-slate-400 mt-2 font-bold uppercase tracking-wider">الصورة الحالية</p>
                             </div>
                         @endif
-                        <input type="file" class="form-control @error('image') is-invalid @enderror" 
-                               id="image" name="image" accept="image/*">
-                        @error('image')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-
-                    <div class="mb-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="status" name="status" 
-                                   value="1" {{ old('status', $category->status) ? 'checked' : '' }}>
-                            <label class="form-check-label" for="status">
-                                نشط
-                            </label>
+                        
+                        <div class="flex-1">
+                            <div class="relative group h-full">
+                                <input type="file" 
+                                       class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" 
+                                       id="image" name="image" accept="image/*"
+                                       onchange="document.getElementById('fileName').textContent = this.files[0].name">
+                                <div class="w-full h-full min-h-[128px] px-4 py-6 rounded-2xl border-2 border-dashed border-slate-200 group-hover:border-primary-start/30 transition-all-300 bg-slate-50/50 text-center flex flex-col justify-center items-center">
+                                    <i class="fas fa-cloud-upload-alt text-2xl text-slate-300 group-hover:text-primary-start transition-all-300 mb-1"></i>
+                                    <p class="text-xs text-slate-500 font-medium" id="fileName">اضغط لتغيير الصورة</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    @error('image')
+                        <p class="mt-1 text-xs text-rose-500 font-medium">{{ $message }}</p>
+                    @enderror
+                </div>
 
-                    <div class="d-flex gap-2">
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-save me-2"></i> حفظ التغييرات
-                        </button>
-                        <a href="{{ route('admin.categories.index') }}" class="btn btn-secondary">
-                            <i class="fas fa-times me-2"></i> إلغاء
-                        </a>
-                    </div>
-                </form>
+                <!-- Status -->
+                <div class="flex items-center">
+                    <label class="relative inline-flex items-center cursor-pointer group">
+                        <input type="checkbox" id="status" name="status" value="1" class="sr-only peer" {{ old('status', $category->status) ? 'checked' : '' }}>
+                        <div class="w-12 h-6 bg-slate-200 peer-focus:ring-4 peer-focus:ring-emerald-500/20 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:right-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-500"></div>
+                        <span class="mr-3 text-sm font-bold text-slate-700">تفعيل الفئة</span>
+                    </label>
+                </div>
+
+                <div class="flex items-center gap-4 pt-4 border-t border-slate-100">
+                    <button type="submit" class="px-8 py-3 bg-primary-start hover:bg-primary-end text-white font-bold rounded-2xl shadow-lg hover:shadow-primary-start/30 transition-all-300 flex-1 flex justify-center items-center">
+                        <i class="fas fa-save ml-2"></i> حفظ التغييرات
+                    </button>
+                    <a href="{{ route('admin.categories.index') }}" class="px-8 py-3 bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold rounded-2xl transition-all-300 text-center">
+                        إلغاء
+                    </a>
+                </div>
             </div>
-        </div>
+        </form>
     </div>
 </div>
 @endsection

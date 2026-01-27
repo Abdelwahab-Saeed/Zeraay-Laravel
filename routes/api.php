@@ -25,6 +25,17 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/wishlist', [WishlistController::class, 'store']);
     Route::delete('/wishlist/{wishlistItem}', [WishlistController::class, 'destroy']);
     Route::post('/wishlist/{wishlistItem}/move-to-cart', [WishlistController::class, 'moveToCart']);
+    
+    // Payment Methods
+    Route::get('/payment-methods', [\App\Http\Controllers\API\PaymentMethodController::class, 'index']);
+    
+    // Coupon routes
+    Route::post('/coupons/redeem', [\App\Http\Controllers\API\CouponController::class, 'apply']);
+
+    // Order routes
+    Route::get('/orders', [\App\Http\Controllers\API\OrderController::class, 'index']);
+    Route::post('/orders', [\App\Http\Controllers\API\OrderController::class, 'store']);
+    Route::get('/orders/{order}', [\App\Http\Controllers\API\OrderController::class, 'show']);
 });
 
 // Public API routes for mobile app

@@ -26,9 +26,21 @@ Route::prefix('admin')->name('admin.')->middleware(['web', 'admin'])->group(func
     Route::resource('categories', CategoryController::class)->except(['show']);
     
     // Products
+    Route::get('products/stock', [ProductController::class, 'stock'])->name('products.stock');
     Route::resource('products', ProductController::class)->except(['show']);
     
     // Users
     Route::resource('users', UserController::class)->except(['create', 'store']);
+    
+    // Coupons
+    Route::resource('coupons', \App\Http\Controllers\Admin\CouponController::class);
+
+    // Payment Methods
+    Route::resource('payment_methods', \App\Http\Controllers\Admin\PaymentMethodController::class)->except(['show']);
+
+    // Orders
+    Route::get('orders', [\App\Http\Controllers\Admin\OrderController::class, 'index'])->name('orders.index');
+    Route::get('orders/{order}', [\App\Http\Controllers\Admin\OrderController::class, 'show'])->name('orders.show');
+    Route::patch('orders/{order}', [\App\Http\Controllers\Admin\OrderController::class, 'update'])->name('orders.update');
 });
 

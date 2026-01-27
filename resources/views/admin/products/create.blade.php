@@ -3,29 +3,105 @@
 @section('title', 'إضافة منتج جديد')
 
 @section('content')
-<div class="row">
-    <div class="col-md-10 mx-auto">
-        <div class="card">
-            <div class="card-header">
-                <h4>إضافة منتج جديد</h4>
-            </div>
-            <div class="card-body">
-                <form action="{{ route('admin.products.store') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
+<div class="max-w-5xl mx-auto animate-fade-in">
+    <div class="mb-8">
+        <a href="{{ route('admin.products.index') }}" class="text-slate-500 hover:text-primary-start transition-colors mb-4 inline-flex items-center text-sm font-medium">
+            <i class="fas fa-arrow-right ml-2 text-xs"></i> العودة للمنتجات
+        </a>
+        <h2 class="text-3xl font-bold text-slate-800">إضافة منتج جديد</h2>
+        <p class="text-slate-500 mt-1">قم بتعبئة البيانات أدناه لإضافة منتج جديد لمتجرك.</p>
+    </div>
 
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="name" class="form-label">اسم المنتج <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control @error('name') is-invalid @enderror" 
-                                   id="name" name="name" value="{{ old('name') }}">
+    <form action="{{ route('admin.products.store') }}" method="POST" novalidate enctype="multipart/form-data">
+        @csrf
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Main Content -->
+            <div class="lg:col-span-2 space-y-8">
+                <!-- Basic Info Card -->
+                <div class="bg-white rounded-3xl shadow-sm border border-slate-100 p-8">
+                    <h3 class="text-lg font-bold text-slate-800 mb-6 flex items-center">
+                        <i class="fas fa-info-circle ml-3 text-primary-start"></i> المعلومات الأساسية
+                    </h3>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-sm font-bold text-slate-700 mb-2">اسم المنتج <span class="text-rose-500">*</span></label>
+                            <input type="text" 
+                                   class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary-start focus:ring-4 focus:ring-primary-start/10 transition-all-300 outline-none @error('name') border-rose-500 ring-rose-500/10 @enderror" 
+                                   id="name" name="name" value="{{ old('name') }}" placeholder="أدخل اسم المنتج">
                             @error('name')
-                                <div class="invalid-feedback">{{ $message }}</div>
+                                <p class="mt-1 text-xs text-rose-500 font-medium">{{ $message }}</p>
                             @enderror
                         </div>
 
-                        <div class="col-md-6 mb-3">
-                            <label for="category_id" class="form-label">الفئة <span class="text-danger">*</span></label>
-                            <select class="form-select @error('category_id') is-invalid @enderror" 
+                        <div>
+                            <label for="description" class="block text-sm font-bold text-slate-700 mb-2">الوصف <span class="text-rose-500">*</span></label>
+                            <textarea class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary-start focus:ring-4 focus:ring-primary-start/10 transition-all-300 outline-none @error('description') border-rose-500 ring-rose-500/10 @enderror" 
+                                      id="description" name="description" rows="6" placeholder="اكتب وصفاً تفصيلياً للمنتج...">{{ old('description') }}</textarea>
+                            @error('description')
+                                <p class="mt-1 text-xs text-rose-500 font-medium">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pricing & Stock Card -->
+                <div class="bg-white rounded-3xl shadow-sm border border-slate-100 p-8">
+                    <h3 class="text-lg font-bold text-slate-800 mb-6 flex items-center">
+                        <i class="fas fa-tags ml-3 text-emerald-500"></i> التسعير والمخزون
+                    </h3>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div>
+                            <label for="price" class="block text-sm font-bold text-slate-700 mb-2">السعر <span class="text-rose-500">*</span></label>
+                            <div class="relative">
+                                <input type="number" step="0.01" 
+                                       class="w-full pl-12 pr-4 py-3 rounded-xl border border-slate-200 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 transition-all-300 outline-none @error('price') border-rose-500 ring-rose-500/10 @enderror" 
+                                       id="price" name="price" value="{{ old('price') }}" placeholder="0.00">
+                                <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-xs uppercase">ج.م</span>
+                            </div>
+                            @error('price')
+                                <p class="mt-1 text-xs text-rose-500 font-medium">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div>
+                            <label for="discount_price" class="block text-sm font-bold text-slate-700 mb-2">سعر الخصم</label>
+                            <div class="relative">
+                                <input type="number" step="0.01" 
+                                       class="w-full pl-12 pr-4 py-3 rounded-xl border border-slate-200 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 transition-all-300 outline-none @error('discount_price') border-rose-500 ring-rose-500/10 @enderror" 
+                                       id="discount_price" name="discount_price" value="{{ old('discount_price') }}" placeholder="0.00">
+                                <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-xs uppercase">ج.م</span>
+                            </div>
+                            @error('discount_price')
+                                <p class="mt-1 text-xs text-rose-500 font-medium">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div>
+                            <label for="stock" class="block text-sm font-bold text-slate-700 mb-2">الكمية <span class="text-rose-500">*</span></label>
+                            <input type="number" 
+                                   class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 transition-all-300 outline-none @error('stock') border-rose-500 ring-rose-500/10 @enderror" 
+                                   id="stock" name="stock" value="{{ old('stock', 0) }}">
+                            @error('stock')
+                                <p class="mt-1 text-xs text-rose-500 font-medium">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar Info -->
+            <div class="space-y-8">
+                <!-- Status & Category Card -->
+                <div class="bg-white rounded-3xl shadow-sm border border-slate-100 p-8">
+                    <h3 class="text-lg font-bold text-slate-800 mb-6">التنظيم</h3>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <label for="category_id" class="block text-sm font-bold text-slate-700 mb-2">الفئة <span class="text-rose-500">*</span></label>
+                            <select class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary-start focus:ring-4 focus:ring-primary-start/10 transition-all-300 outline-none @error('category_id') border-rose-500 ring-rose-500/10 @enderror bg-white cursor-pointer appearance-none" 
                                     id="category_id" name="category_id">
                                 <option value="">اختر الفئة</option>
                                 @foreach($categories as $category)
@@ -35,79 +111,55 @@
                                 @endforeach
                             </select>
                             @error('category_id')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="description" class="form-label">الوصف <span class="text-danger">*</span></label>
-                        <textarea class="form-control @error('description') is-invalid @enderror" 
-                                  id="description" name="description" rows="4">{{ old('description') }}</textarea>
-                        @error('description')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-4 mb-3">
-                            <label for="price" class="form-label">السعر <span class="text-danger">*</span></label>
-                            <input type="number" step="0.01" class="form-control @error('price') is-invalid @enderror" 
-                                   id="price" name="price" value="{{ old('price') }}">
-                            @error('price')
-                                <div class="invalid-feedback">{{ $message }}</div>
+                                <p class="mt-1 text-xs text-rose-500 font-medium">{{ $message }}</p>
                             @enderror
                         </div>
 
-                        <div class="col-md-4 mb-3">
-                            <label for="discount_price" class="form-label">سعر الخصم</label>
-                            <input type="number" step="0.01" class="form-control @error('discount_price') is-invalid @enderror" 
-                                   id="discount_price" name="discount_price" value="{{ old('discount_price') }}">
-                            @error('discount_price')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="col-md-4 mb-3">
-                            <label for="stock" class="form-label">الكمية المتوفرة <span class="text-danger">*</span></label>
-                            <input type="number" class="form-control @error('stock') is-invalid @enderror" 
-                                   id="stock" name="stock" value="{{ old('stock', 0) }}">
-                            @error('stock')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="image" class="form-label">الصورة</label>
-                        <input type="file" class="form-control @error('image') is-invalid @enderror" 
-                               id="image" name="image" accept="image/*">
-                        @error('image')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-
-                    <div class="mb-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="status" name="status" 
-                                   value="1" {{ old('status', true) ? 'checked' : '' }}>
-                            <label class="form-check-label" for="status">
-                                نشط
+                        <div class="flex items-center">
+                            <label class="relative inline-flex items-center cursor-pointer group">
+                                <input type="checkbox" id="status" name="status" value="1" class="sr-only peer" {{ old('status', true) ? 'checked' : '' }}>
+                                <div class="w-12 h-6 bg-slate-200 peer-focus:ring-4 peer-focus:ring-emerald-500/20 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:right-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-500"></div>
+                                <span class="mr-3 text-sm font-bold text-slate-700">نشط</span>
                             </label>
                         </div>
                     </div>
+                </div>
 
-                    <div class="d-flex gap-2">
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-save me-2"></i> حفظ
+                <!-- Media Card -->
+                <div class="bg-white rounded-3xl shadow-sm border border-slate-100 p-8">
+                    <h3 class="text-lg font-bold text-slate-800 mb-6">الوسائط</h3>
+                    <div>
+                        <label for="image" class="block text-sm font-bold text-slate-700 mb-2 text-center">الصورة الرئيسية</label>
+                        <div class="relative group">
+                            <input type="file" 
+                                   class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" 
+                                   id="image" name="image" accept="image/*"
+                                   onchange="document.getElementById('fileName').textContent = this.files[0].name">
+                            <div class="w-full px-4 py-10 rounded-2xl border-2 border-dashed border-slate-200 group-hover:border-primary-start/30 transition-all-300 bg-slate-50/50 text-center">
+                                <i class="fas fa-image text-4xl text-slate-300 group-hover:text-primary-start transition-all-300 mb-2"></i>
+                                <p class="text-xs text-slate-500 font-medium leading-relaxed" id="fileName">اضغط للرفع أو اسحب الصورة هنا</p>
+                            </div>
+                        </div>
+                        @error('image')
+                            <p class="mt-1 text-xs text-rose-500 font-medium">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+
+                <!-- Action Card -->
+                <div class="bg-slate-900 rounded-3xl shadow-lg p-8 text-white">
+                    <p class="text-sm text-slate-400 mb-6 text-center leading-relaxed">تأكد من مراجعة كافة البيانات قبل عملية الحفظ النهائي.</p>
+                    <div class="space-y-4">
+                        <button type="submit" class="w-full py-4 bg-primary-start hover:bg-primary-end text-white font-bold rounded-2xl shadow-lg hover:shadow-primary-start/30 transition-all-300 flex justify-center items-center">
+                            <i class="fas fa-save ml-2"></i> حفظ المنتج
                         </button>
-                        <a href="{{ route('admin.products.index') }}" class="btn btn-secondary">
-                            <i class="fas fa-times me-2"></i> إلغاء
+                        <a href="{{ route('admin.products.index') }}" class="w-full py-4 bg-white/10 hover:bg-white/20 text-white font-bold rounded-2xl transition-all-300 text-center block">
+                            إلغاء التغييرات
                         </a>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
-    </div>
+    </form>
 </div>
 @endsection

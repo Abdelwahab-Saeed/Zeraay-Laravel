@@ -21,29 +21,33 @@ class WishlistController extends Controller
                 $query->active();
             }])
             ->withActiveProducts()
-            ->get();
+            ->paginate(15);
 
         return response()->json([
             'success' => true,
             'message' => 'تم جلب قائمة الأمنيات بنجاح',
-            'data' => [
-                'wishlist_items' => $wishlistItems->map(function ($item) {
-                    return [
-                        'id' => $item->id,
-                        'product' => [
-                            'id' => $item->product->id,
-                            'name' => $item->product->name,
-                            'description' => $item->product->description,
-                            'image' => $item->product->image_url,
-                            'price' => $item->product->price,
-                            'discount_price' => $item->product->discount_price,
-                            'final_price' => $item->product->final_price,
-                            'stock' => $item->product->stock,
-                            'in_stock' => $item->product->stock > 0,
-                        ],
-                        'added_at' => $item->created_at->format('Y-m-d H:i:s'),
-                    ];
-                }),
+            'data' => $wishlistItems->map(function ($item) {
+                return [
+                    'id' => $item->id,
+                    'product' => [
+                        'id' => $item->product->id,
+                        'name' => $item->product->name,
+                        'description' => $item->product->description,
+                        'image' => $item->product->image_url,
+                        'price' => $item->product->price,
+                        'discount_price' => $item->product->discount_price,
+                        'final_price' => $item->product->final_price,
+                        'stock' => $item->product->stock,
+                        'in_stock' => $item->product->stock > 0,
+                    ],
+                    'added_at' => $item->created_at->format('Y-m-d H:i:s'),
+                ];
+            }),
+            'pagination' => [
+                'current_page' => $wishlistItems->currentPage(),
+                'last_page' => $wishlistItems->lastPage(),
+                'per_page' => $wishlistItems->perPage(),
+                'total' => $wishlistItems->total(),
             ],
         ]);
     }
