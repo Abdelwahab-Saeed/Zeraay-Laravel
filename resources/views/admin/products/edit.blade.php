@@ -12,7 +12,15 @@
         <p class="text-slate-500 mt-1">قم بتعديل البيانات المطلوبة للمنتج أدناه.</p>
     </div>
 
-    <form action="{{ route('admin.products.update', $product) }}" method="POST" novalidate enctype="multipart/form-data">
+    <form action="{{ route('admin.products.update', $product) }}" method="POST" novalidate enctype="multipart/form-data"
+          x-data="{ 
+            features: @js(old('features', $product->features->pluck('name')->toArray() ?? [])) ? @js(old('features', $product->features->pluck('name')->toArray() ?? [])).map(f => ({name: f})) : [],
+            specifications: @js(old('specifications', $product->specifications->pluck('name')->toArray() ?? [])) ? @js(old('specifications', $product->specifications->pluck('name')->toArray() ?? [])).map(s => ({name: s})) : [],
+            addFeature() { this.features.push({name: ''}) },
+            removeFeature(index) { this.features.splice(index, 1) },
+            addSpecification() { this.specifications.push({name: ''}) },
+            removeSpecification(index) { this.specifications.splice(index, 1) }
+          }">
         @csrf
         @method('PUT')
 
@@ -47,47 +55,64 @@
                     </div>
                 </div>
 
-                <!-- Pricing & Stock Card -->
+                </div>
+
+                <!-- Features Card -->
                 <div class="bg-white rounded-3xl shadow-sm border border-slate-100 p-8">
-                    <h3 class="text-lg font-bold text-slate-800 mb-6 flex items-center">
-                        <i class="fas fa-tags ml-3 text-emerald-500"></i> التسعير والمخزون
+                    <h3 class="text-lg font-bold text-slate-800 mb-6 flex items-center justify-between">
+                        <span class="flex items-center">
+                            <i class="fas fa-list-ul ml-3 text-blue-500"></i> مميزات المنتج
+                        </span>
+                        <button type="button" @click="addFeature()" class="text-sm bg-blue-50 text-blue-600 px-4 py-2 rounded-xl hover:bg-blue-100 transition-colors">
+                            <i class="fas fa-plus ml-1"></i> إضافة ميزة
+                        </button>
                     </h3>
 
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div>
-                            <label for="price" class="block text-sm font-bold text-slate-700 mb-2">السعر <span class="text-rose-500">*</span></label>
-                            <div class="relative">
-                                <input type="number" step="0.01" 
-                                       class="w-full pl-12 pr-4 py-3 rounded-xl border border-slate-200 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 transition-all-300 outline-none @error('price') border-rose-500 ring-rose-500/10 @enderror" 
-                                       id="price" name="price" value="{{ old('price', $product->price) }}">
-                                <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-xs uppercase">ج.م</span>
+                    <div id="features-container" class="space-y-4">
+                        <template x-for="(feature, index) in features" :key="index">
+                            <div class="flex gap-4 items-start animate-fade-in">
+                                <div class="flex-grow">
+                                    <input type="text" :name="'features[' + index + ']'" x-model="feature.name"
+                                           class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all-300 outline-none" 
+                                           placeholder="أدخل ميزة المنتج">
+                                </div>
+                                <button type="button" @click="removeFeature(index)" class="p-3 text-rose-500 hover:bg-rose-50 rounded-xl transition-colors">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
                             </div>
-                            @error('price')
-                                <p class="mt-1 text-xs text-rose-500 font-medium">{{ $message }}</p>
-                            @enderror
+                        </template>
+                        <div x-show="features.length === 0" class="text-center py-6 bg-slate-50 rounded-2xl border-2 border-dashed border-slate-100">
+                            <p class="text-slate-400 text-sm">لم يتم إضافة أي مميزات بعد.</p>
                         </div>
+                    </div>
+                </div>
 
-                        <div>
-                            <label for="discount_price" class="block text-sm font-bold text-slate-700 mb-2">سعر الخصم</label>
-                            <div class="relative">
-                                <input type="number" step="0.01" 
-                                       class="w-full pl-12 pr-4 py-3 rounded-xl border border-slate-200 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 transition-all-300 outline-none @error('discount_price') border-rose-500 ring-rose-500/10 @enderror" 
-                                       id="discount_price" name="discount_price" value="{{ old('discount_price', $product->discount_price) }}">
-                                <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-xs uppercase">ج.م</span>
+                <!-- Specifications Card -->
+                <div class="bg-white rounded-3xl shadow-sm border border-slate-100 p-8">
+                    <h3 class="text-lg font-bold text-slate-800 mb-6 flex items-center justify-between">
+                        <span class="flex items-center">
+                            <i class="fas fa-cog ml-3 text-amber-500"></i> ميزات المواصفات
+                        </span>
+                        <button type="button" @click="addSpecification()" class="text-sm bg-amber-50 text-amber-600 px-4 py-2 rounded-xl hover:bg-amber-100 transition-colors">
+                            <i class="fas fa-plus ml-1"></i> إضافة مواصفة
+                        </button>
+                    </h3>
+
+                    <div id="specifications-container" class="space-y-4">
+                        <template x-for="(spec, index) in specifications" :key="index">
+                            <div class="flex gap-4 items-start animate-fade-in">
+                                <div class="flex-grow">
+                                    <input type="text" :name="'specifications[' + index + ']'" x-model="spec.name"
+                                           class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-amber-500 focus:ring-4 focus:ring-amber-500/10 transition-all-300 outline-none" 
+                                           placeholder="أدخل مواصفة المنتج">
+                                </div>
+                                <button type="button" @click="removeSpecification(index)" class="p-3 text-rose-500 hover:bg-rose-50 rounded-xl transition-colors">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
                             </div>
-                            @error('discount_price')
-                                <p class="mt-1 text-xs text-rose-500 font-medium">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <div>
-                            <label for="stock" class="block text-sm font-bold text-slate-700 mb-2">الكمية <span class="text-rose-500">*</span></label>
-                            <input type="number" 
-                                   class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 transition-all-300 outline-none @error('stock') border-rose-500 ring-rose-500/10 @enderror" 
-                                   id="stock" name="stock" value="{{ old('stock', $product->stock) }}">
-                            @error('stock')
-                                <p class="mt-1 text-xs text-rose-500 font-medium">{{ $message }}</p>
-                            @enderror
+                        </template>
+                        <div x-show="specifications.length === 0" class="text-center py-6 bg-slate-50 rounded-2xl border-2 border-dashed border-slate-100">
+                            <p class="text-slate-400 text-sm">لم يتم إضافة أي مواصفات بعد.</p>
                         </div>
                     </div>
                 </div>

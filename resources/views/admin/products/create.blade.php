@@ -12,7 +12,15 @@
         <p class="text-slate-500 mt-1">قم بتعبئة البيانات أدناه لإضافة منتج جديد لمتجرك.</p>
     </div>
 
-    <form action="{{ route('admin.products.store') }}" method="POST" novalidate enctype="multipart/form-data">
+    <form action="{{ route('admin.products.store') }}" method="POST" novalidate enctype="multipart/form-data"
+          x-data="{ 
+            features: @js(old('features', [])) ? @js(old('features', [])).map(f => ({name: f})) : [],
+            specifications: @js(old('specifications', [])) ? @js(old('specifications', [])).map(s => ({name: s})) : [],
+            addFeature() { this.features.push({name: ''}) },
+            removeFeature(index) { this.features.splice(index, 1) },
+            addSpecification() { this.specifications.push({name: ''}) },
+            removeSpecification(index) { this.specifications.splice(index, 1) }
+          }">
         @csrf
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -43,9 +51,6 @@
                                 <p class="mt-1 text-xs text-rose-500 font-medium">{{ $message }}</p>
                             @enderror
                         </div>
-                    </div>
-                </div>
-
                 <!-- Pricing & Stock Card -->
                 <div class="bg-white rounded-3xl shadow-sm border border-slate-100 p-8">
                     <h3 class="text-lg font-bold text-slate-800 mb-6 flex items-center">
@@ -87,6 +92,66 @@
                             @error('stock')
                                 <p class="mt-1 text-xs text-rose-500 font-medium">{{ $message }}</p>
                             @enderror
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Features Card -->
+                <div class="bg-white rounded-3xl shadow-sm border border-slate-100 p-8">
+                    <h3 class="text-lg font-bold text-slate-800 mb-6 flex items-center justify-between">
+                        <span class="flex items-center">
+                            <i class="fas fa-list-ul ml-3 text-blue-500"></i> مميزات المنتج
+                        </span>
+                        <button type="button" @click="addFeature()" class="text-sm bg-blue-50 text-blue-600 px-4 py-2 rounded-xl hover:bg-blue-100 transition-colors">
+                            <i class="fas fa-plus ml-1"></i> إضافة ميزة
+                        </button>
+                    </h3>
+
+                    <div id="features-container" class="space-y-4">
+                        <template x-for="(feature, index) in features" :key="index">
+                            <div class="flex gap-4 items-start animate-fade-in">
+                                <div class="flex-grow">
+                                    <input type="text" :name="'features[' + index + ']'" x-model="feature.name"
+                                           class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all-300 outline-none" 
+                                           placeholder="أدخل ميزة المنتج">
+                                </div>
+                                <button type="button" @click="removeFeature(index)" class="p-3 text-rose-500 hover:bg-rose-50 rounded-xl transition-colors">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </div>
+                        </template>
+                        <div x-show="features.length === 0" class="text-center py-6 bg-slate-50 rounded-2xl border-2 border-dashed border-slate-100">
+                            <p class="text-slate-400 text-sm">لم يتم إضافة أي مميزات بعد.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Specifications Card -->
+                <div class="bg-white rounded-3xl shadow-sm border border-slate-100 p-8">
+                    <h3 class="text-lg font-bold text-slate-800 mb-6 flex items-center justify-between">
+                        <span class="flex items-center">
+                            <i class="fas fa-cog ml-3 text-amber-500"></i> ميزات المواصفات
+                        </span>
+                        <button type="button" @click="addSpecification()" class="text-sm bg-amber-50 text-amber-600 px-4 py-2 rounded-xl hover:bg-amber-100 transition-colors">
+                            <i class="fas fa-plus ml-1"></i> إضافة مواصفة
+                        </button>
+                    </h3>
+
+                    <div id="specifications-container" class="space-y-4">
+                        <template x-for="(spec, index) in specifications" :key="index">
+                            <div class="flex gap-4 items-start animate-fade-in">
+                                <div class="flex-grow">
+                                    <input type="text" :name="'specifications[' + index + ']'" x-model="spec.name"
+                                           class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-amber-500 focus:ring-4 focus:ring-amber-500/10 transition-all-300 outline-none" 
+                                           placeholder="أدخل مواصفة المنتج">
+                                </div>
+                                <button type="button" @click="removeSpecification(index)" class="p-3 text-rose-500 hover:bg-rose-50 rounded-xl transition-colors">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </div>
+                        </template>
+                        <div x-show="specifications.length === 0" class="text-center py-6 bg-slate-50 rounded-2xl border-2 border-dashed border-slate-100">
+                            <p class="text-slate-400 text-sm">لم يتم إضافة أي مواصفات بعد.</p>
                         </div>
                     </div>
                 </div>

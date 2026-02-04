@@ -31,6 +31,10 @@ class StoreProductRequest extends FormRequest
             'status' => 'boolean',
             'category_id' => 'required|exists:categories,id',
             'company_id' => 'required|exists:companies,id',
+            'features' => 'nullable|array',
+            'features.*' => 'required|string|max:255',
+            'specifications' => 'nullable|array',
+            'specifications.*' => 'required|string|max:255',
         ];
     }
 

@@ -90,7 +90,25 @@ class ProductController extends Controller
             $data['image'] = $request->file('image')->store('products', 'public');
         }
 
-        Product::create($data);
+        $product = Product::create($data);
+
+        // Handle features
+        if ($request->filled('features')) {
+            foreach ($request->features as $feature) {
+                if ($feature) {
+                    $product->features()->create(['name' => $feature]);
+                }
+            }
+        }
+
+        // Handle specifications
+        if ($request->filled('specifications')) {
+            foreach ($request->specifications as $specification) {
+                if ($specification) {
+                    $product->specifications()->create(['name' => $specification]);
+                }
+            }
+        }
 
         return redirect()->route('admin.products.index')
             ->with('success', 'تم إضافة المنتج بنجاح');
@@ -123,6 +141,26 @@ class ProductController extends Controller
         }
 
         $product->update($data);
+
+        // Sync features
+        $product->features()->delete();
+        if ($request->filled('features')) {
+            foreach ($request->features as $feature) {
+                if ($feature) {
+                    $product->features()->create(['name' => $feature]);
+                }
+            }
+        }
+
+        // Sync specifications
+        $product->specifications()->delete();
+        if ($request->filled('specifications')) {
+            foreach ($request->specifications as $specification) {
+                if ($specification) {
+                    $product->specifications()->create(['name' => $specification]);
+                }
+            }
+        }
 
         return redirect()->route('admin.products.index')
             ->with('success', 'تم تحديث المنتج بنجاح');

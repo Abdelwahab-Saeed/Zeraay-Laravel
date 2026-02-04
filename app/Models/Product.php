@@ -103,4 +103,20 @@ class Product extends Model
     {
         return $this->hasMany(WishlistItem::class);
     }
+
+    /**
+     * Get the features for this product.
+     */
+    public function features()
+    {
+        return $this->hasMany(ProductFeature::class);
+    }
+
+    /**
+     * Get the specifications for this product.
+     */
+    public function specifications()
+    {
+        return $this->hasMany(ProductSpecification::class);
+    }
 }
