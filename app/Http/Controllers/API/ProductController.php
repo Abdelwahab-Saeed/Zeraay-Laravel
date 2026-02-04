@@ -13,7 +13,7 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Product::active()->with('category');
+        $query = Product::active()->with('category')->with('features')->with('specifications');
 
         // Filter by category
         if ($request->filled('category_id')) {
@@ -77,6 +77,18 @@ class ProductController extends Controller
                         'id' => $product->category->id,
                         'name' => $product->category->name,
                     ],
+                    'features' => $product->features->map(function ($feature) {
+                        return [
+                            'id' => $feature->id,
+                            'name' => $feature->name,
+                        ];
+                    }),
+                    'specifications' => $product->specifications->map(function ($specification) {
+                        return [
+                            'id' => $specification->id,
+                            'name' => $specification->name,
+                        ];
+                    }),
                 ];
             }),
             'pagination' => [
@@ -94,7 +106,7 @@ class ProductController extends Controller
     public function show($id)
     {
         $product = Product::active()
-            ->with('category')
+            ->with(['category', 'features', 'specifications'])
             ->find($id);
 
         if(! $product) {
@@ -121,6 +133,18 @@ class ProductController extends Controller
                     'id' => $product->category->id,
                     'name' => $product->category->name,
                 ],
+                'features' => $product->features->map(function ($feature) {
+                    return [
+                        'id' => $feature->id,
+                        'name' => $feature->name,
+                    ];
+                }),
+                'specifications' => $product->specifications->map(function ($specification) {
+                    return [
+                        'id' => $specification->id,
+                        'name' => $specification->name,
+                    ];
+                }),
             ],
         ]);
     }

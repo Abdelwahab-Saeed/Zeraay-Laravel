@@ -109,17 +109,25 @@
 
                     <div id="features-container" class="space-y-4">
                         <template x-for="(feature, index) in features" :key="index">
-                            <div class="flex gap-4 items-start animate-fade-in">
-                                <div class="flex-grow">
-                                    <input type="text" :name="'features[' + index + ']'" x-model="feature.name"
-                                           class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all-300 outline-none" 
-                                           placeholder="أدخل ميزة المنتج">
+                            <div class="flex flex-col gap-1">
+                                <div class="flex gap-4 items-start animate-fade-in">
+                                    <div class="flex-grow">
+                                        <input type="text" :name="'features[' + index + ']'" x-model="feature.name"
+                                               class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all-300 outline-none" 
+                                               placeholder="أدخل ميزة المنتج">
+                                    </div>
+                                    <button type="button" @click="removeFeature(index)" class="p-3 text-rose-500 hover:bg-rose-50 rounded-xl transition-colors">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
                                 </div>
-                                <button type="button" @click="removeFeature(index)" class="p-3 text-rose-500 hover:bg-rose-50 rounded-xl transition-colors">
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
+                                @error('features.*')
+                                    <p class="text-xs text-rose-500 font-medium px-1">{{ $message }}</p>
+                                @enderror
                             </div>
                         </template>
+                        @error('features')
+                            <p class="text-xs text-rose-500 font-medium px-1">{{ $message }}</p>
+                        @enderror
                         <div x-show="features.length === 0" class="text-center py-6 bg-slate-50 rounded-2xl border-2 border-dashed border-slate-100">
                             <p class="text-slate-400 text-sm">لم يتم إضافة أي مميزات بعد.</p>
                         </div>
@@ -139,17 +147,25 @@
 
                     <div id="specifications-container" class="space-y-4">
                         <template x-for="(spec, index) in specifications" :key="index">
-                            <div class="flex gap-4 items-start animate-fade-in">
-                                <div class="flex-grow">
-                                    <input type="text" :name="'specifications[' + index + ']'" x-model="spec.name"
-                                           class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-amber-500 focus:ring-4 focus:ring-amber-500/10 transition-all-300 outline-none" 
-                                           placeholder="أدخل مواصفة المنتج">
+                            <div class="flex flex-col gap-1">
+                                <div class="flex gap-4 items-start animate-fade-in">
+                                    <div class="flex-grow">
+                                        <input type="text" :name="'specifications[' + index + ']'" x-model="spec.name"
+                                               class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-amber-500 focus:ring-4 focus:ring-amber-500/10 transition-all-300 outline-none" 
+                                               placeholder="أدخل مواصفة المنتج">
+                                    </div>
+                                    <button type="button" @click="removeSpecification(index)" class="p-3 text-rose-500 hover:bg-rose-50 rounded-xl transition-colors">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
                                 </div>
-                                <button type="button" @click="removeSpecification(index)" class="p-3 text-rose-500 hover:bg-rose-50 rounded-xl transition-colors">
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
+                                @error('specifications.*')
+                                    <p class="text-xs text-rose-500 font-medium px-1">{{ $message }}</p>
+                                @enderror
                             </div>
                         </template>
+                        @error('specifications')
+                            <p class="text-xs text-rose-500 font-medium px-1">{{ $message }}</p>
+                        @enderror
                         <div x-show="specifications.length === 0" class="text-center py-6 bg-slate-50 rounded-2xl border-2 border-dashed border-slate-100">
                             <p class="text-slate-400 text-sm">لم يتم إضافة أي مواصفات بعد.</p>
                         </div>
