@@ -94,4 +94,12 @@ class User extends Authenticatable
             ->withPivot('used_at')
             ->withTimestamps();
     }
+
+    /**
+     * Get the user's chat.
+     */
+    public function chat()
+    {
+        return $this->hasOne(Chat::class);
+    }
 }

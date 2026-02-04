@@ -97,6 +97,12 @@
                         <span class="mr-3 font-medium">وسائل الدفع</span>
                     </a>
 
+                    <a href="{{ route('admin.chats.index') }}" 
+                       class="flex items-center px-4 py-3 rounded-xl transition-all-300 {{ request()->routeIs('admin.chats.*') ? 'bg-white/20 text-white shadow-lg' : 'text-white/70 hover:bg-white/10 hover:text-white' }}">
+                        <i class="fas fa-comments w-6 text-lg {{ request()->routeIs('admin.chats.*') ? 'text-white' : 'text-white/50' }}"></i>
+                        <span class="mr-3 font-medium">المحادثات</span>
+                    </a>
+
                     <a href="{{ route('admin.technical_supports.index') }}" 
                        class="flex items-center px-4 py-3 rounded-xl transition-all-300 {{ request()->routeIs('admin.technical_supports.*') ? 'bg-white/20 text-white shadow-lg' : 'text-white/70 hover:bg-white/10 hover:text-white' }}">
                         <i class="fas fa-headset w-6 text-lg {{ request()->routeIs('admin.technical_supports.*') ? 'text-white' : 'text-white/50' }}"></i>

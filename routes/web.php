@@ -50,5 +50,11 @@ Route::prefix('admin')->name('admin.')->middleware(['web', 'admin'])->group(func
 
     // Technical Support
     Route::resource('technical_supports', TechnicalSupportController::class)->except(['show']);
+
+    // Chat routes
+    Route::get('chats', [\App\Http\Controllers\Admin\ChatController::class, 'index'])->name('chats.index');
+    Route::get('chats/{id}', [\App\Http\Controllers\Admin\ChatController::class, 'show'])->name('chats.show');
+    Route::post('chats/{id}/reply', [\App\Http\Controllers\Admin\ChatController::class, 'store'])->name('chats.store');
+    Route::post('chats/{id}/read', [\App\Http\Controllers\Admin\ChatController::class, 'markRead'])->name('chats.read');
 });
 
