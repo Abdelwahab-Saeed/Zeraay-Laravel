@@ -26,6 +26,93 @@
     </div>
 </div>
 
+<!-- Statistics Cards -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 mb-8 animate-fade-in">
+    <!-- Total Revenue -->
+    <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 flex flex-col justify-between">
+        <div class="flex items-center justify-between mb-4">
+            <div class="w-10 h-10 rounded-xl bg-primary-start/10 flex items-center justify-center text-primary-start">
+                <i class="fas fa-money-bill-wave"></i>
+            </div>
+            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">الإيرادات</span>
+        </div>
+        <div>
+            <h4 class="text-xl font-black text-slate-800">{{ number_format($statistics['total_revenue'], 2) }}</h4>
+            <p class="text-xs text-slate-400 mt-1">إجمالي المبيعات (المستلمة)</p>
+        </div>
+    </div>
+
+    <!-- Pending Orders -->
+    <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 flex flex-col justify-between">
+        <div class="flex items-center justify-between mb-4">
+            <div class="w-10 h-10 rounded-xl bg-amber-100 flex items-center justify-center text-amber-600">
+                <i class="fas fa-clock"></i>
+            </div>
+            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">قيد الانتظار</span>
+        </div>
+        <div>
+            <h4 class="text-2xl font-black text-slate-800">{{ $statistics['pending'] }}</h4>
+            <p class="text-xs text-slate-400 mt-1">طلبات بانتظار المراجعة</p>
+        </div>
+    </div>
+
+    <!-- Processing Orders -->
+    <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 flex flex-col justify-between">
+        <div class="flex items-center justify-between mb-4">
+            <div class="w-10 h-10 rounded-xl bg-blue-100 flex items-center justify-center text-blue-600">
+                <i class="fas fa-cog fa-spin"></i>
+            </div>
+            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">قيد التنفيذ</span>
+        </div>
+        <div>
+            <h4 class="text-2xl font-black text-slate-800">{{ $statistics['processing'] }}</h4>
+            <p class="text-xs text-slate-400 mt-2">طلبات يتم تجهيزها</p>
+        </div>
+    </div>
+
+    <!-- Shipped Orders -->
+    <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 flex flex-col justify-between">
+        <div class="flex items-center justify-between mb-4">
+            <div class="w-10 h-10 rounded-xl bg-purple-100 flex items-center justify-center text-purple-600">
+                <i class="fas fa-truck-fast"></i>
+            </div>
+            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">تم الشحن</span>
+        </div>
+        <div>
+            <h4 class="text-2xl font-black text-slate-800">{{ $statistics['shipped'] }}</h4>
+            <p class="text-xs text-slate-400 mt-2">طلبات في الطريق للعميل</p>
+        </div>
+    </div>
+
+    <!-- Delivered Orders -->
+    <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 flex flex-col justify-between">
+        <div class="flex items-center justify-between mb-4">
+            <div class="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center text-emerald-600">
+                <i class="fas fa-check-double"></i>
+            </div>
+            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">تم التوصيل</span>
+        </div>
+        <div>
+            <h4 class="text-2xl font-black text-slate-800">{{ $statistics['delivered'] }}</h4>
+            <p class="text-xs text-slate-400 mt-2">طلبات تمت بنجاح</p>
+        </div>
+    </div>
+
+    <!-- Cancelled Orders -->
+    <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 flex flex-col justify-between">
+        <div class="flex items-center justify-between mb-4">
+            <div class="w-10 h-10 rounded-xl bg-rose-100 flex items-center justify-center text-rose-600">
+                <i class="fas fa-times-circle"></i>
+            </div>
+            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">ملغي</span>
+        </div>
+        <div>
+            <h4 class="text-2xl font-black text-slate-800">{{ $statistics['cancelled'] }}</h4>
+            <p class="text-xs text-slate-400 mt-2">طلبات تم إلغاؤها</p>
+        </div>
+    </div>
+</div>
+
 <!-- Filters & Search -->
 <div class="bg-white rounded-3xl shadow-sm border border-slate-100 p-6 mb-8 animate-fade-in">
     <form method="GET" action="{{ route('admin.orders.index') }}" class="grid grid-cols-1 md:grid-cols-4 gap-4">

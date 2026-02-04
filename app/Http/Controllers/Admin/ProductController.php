@@ -7,6 +7,7 @@ use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -17,7 +18,7 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Product::with('category');
+        $query = Product::with(['category', 'company']);
 
         // Filter by category
         if ($request->filled('category_id')) {
@@ -36,8 +37,9 @@ class ProductController extends Controller
 
         $products = $query->latest()->paginate(10);
         $categories = Category::active()->get();
+        $companies = Company::all();
 
-        return view('admin.products.index', compact('products', 'categories'));
+        return view('admin.products.index', compact('products', 'categories', 'companies'));
     }
 
     /**
@@ -45,7 +47,7 @@ class ProductController extends Controller
      */
     public function stock(Request $request)
     {
-        $query = Product::with('category');
+        $query = Product::with(['category', 'company']);
 
         // Search by name
         if ($request->filled('search')) {
@@ -72,7 +74,8 @@ class ProductController extends Controller
     public function create()
     {
         $categories = Category::active()->get();
-        return view('admin.products.create', compact('categories'));
+        $companies = Company::all();
+        return view('admin.products.create', compact('categories', 'companies'));
     }
 
     /**
@@ -99,7 +102,8 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         $categories = Category::active()->get();
-        return view('admin.products.edit', compact('product', 'categories'));
+        $companies = Company::all();
+        return view('admin.products.edit', compact('product', 'categories', 'companies'));
     }
 
     /**

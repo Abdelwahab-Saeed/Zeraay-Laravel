@@ -55,6 +55,12 @@
                         <span class="mr-3 font-medium">الفئات</span>
                     </a>
 
+                    <a href="{{ route('admin.companies.index') }}" 
+                       class="flex items-center px-4 py-3 rounded-xl transition-all-300 {{ request()->routeIs('admin.companies.*') ? 'bg-white/20 text-white shadow-lg' : 'text-white/70 hover:bg-white/10 hover:text-white' }}">
+                        <i class="fas fa-building w-6 text-lg {{ request()->routeIs('admin.companies.*') ? 'text-white' : 'text-white/50' }}"></i>
+                        <span class="mr-3 font-medium">الشركات</span>
+                    </a>
+
                     <a href="{{ route('admin.products.index') }}" 
                        class="flex items-center px-4 py-3 rounded-xl transition-all-300 {{ request()->routeIs('admin.products.*') && !request()->routeIs('admin.products.stock') ? 'bg-white/20 text-white shadow-lg' : 'text-white/70 hover:bg-white/10 hover:text-white' }}">
                         <i class="fas fa-box w-6 text-lg {{ request()->routeIs('admin.products.*') && !request()->routeIs('admin.products.stock') ? 'text-white' : 'text-white/50' }}"></i>
@@ -89,6 +95,12 @@
                        class="flex items-center px-4 py-3 rounded-xl transition-all-300 {{ request()->routeIs('admin.payment_methods.*') ? 'bg-white/20 text-white shadow-lg' : 'text-white/70 hover:bg-white/10 hover:text-white' }}">
                         <i class="fas fa-credit-card w-6 text-lg {{ request()->routeIs('admin.payment_methods.*') ? 'text-white' : 'text-white/50' }}"></i>
                         <span class="mr-3 font-medium">وسائل الدفع</span>
+                    </a>
+
+                    <a href="{{ route('admin.technical_supports.index') }}" 
+                       class="flex items-center px-4 py-3 rounded-xl transition-all-300 {{ request()->routeIs('admin.technical_supports.*') ? 'bg-white/20 text-white shadow-lg' : 'text-white/70 hover:bg-white/10 hover:text-white' }}">
+                        <i class="fas fa-headset w-6 text-lg {{ request()->routeIs('admin.technical_supports.*') ? 'text-white' : 'text-white/50' }}"></i>
+                        <span class="mr-3 font-medium">الدعم الفني</span>
                     </a>
 
                     <div class="pt-6 mt-6 border-t border-white/10">

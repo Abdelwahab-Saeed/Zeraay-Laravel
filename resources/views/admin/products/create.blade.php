@@ -115,6 +115,22 @@
                             @enderror
                         </div>
 
+                        <div>
+                            <label for="company_id" class="block text-sm font-bold text-slate-700 mb-2">الشركة <span class="text-rose-500">*</span></label>
+                            <select class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary-start focus:ring-4 focus:ring-primary-start/10 transition-all-300 outline-none @error('company_id') border-rose-500 ring-rose-500/10 @enderror bg-white cursor-pointer appearance-none" 
+                                    id="company_id" name="company_id">
+                                <option value="">اختر الشركة</option>
+                                @foreach($companies as $company)
+                                    <option value="{{ $company->id }}" {{ old('company_id') == $company->id ? 'selected' : '' }}>
+                                        {{ $company->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('company_id')
+                                <p class="mt-1 text-xs text-rose-500 font-medium">{{ $message }}</p>
+                            @enderror
+                        </div>
+
                         <div class="flex items-center">
                             <label class="relative inline-flex items-center cursor-pointer group">
                                 <input type="checkbox" id="status" name="status" value="1" class="sr-only peer" {{ old('status', true) ? 'checked' : '' }}>

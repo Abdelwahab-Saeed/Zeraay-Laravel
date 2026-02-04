@@ -30,6 +30,7 @@ class StoreProductRequest extends FormRequest
             'stock' => 'required|integer|min:0',
             'status' => 'boolean',
             'category_id' => 'required|exists:categories,id',
+            'company_id' => 'required|exists:companies,id',
         ];
     }
 
@@ -49,6 +50,7 @@ class StoreProductRequest extends FormRequest
             'stock' => 'الكمية المتوفرة',
             'status' => 'الحالة',
             'category_id' => 'الفئة',
+            'company_id' => 'الشركة',
         ];
     }
 
@@ -74,6 +76,8 @@ class StoreProductRequest extends FormRequest
             'stock.min' => 'الكمية المتوفرة يجب أن تكون أكبر من أو تساوي صفر',
             'category_id.required' => 'الفئة مطلوبة',
             'category_id.exists' => 'الفئة المحددة غير موجودة',
+            'company_id.required' => 'الشركة مطلوبة',
+            'company_id.exists' => 'الشركة المحددة غير موجودة',
             'image.image' => 'يجب أن يكون الملف صورة',
             'image.mimes' => 'يجب أن تكون الصورة بصيغة: jpeg, png, jpg, gif',
             'image.max' => 'حجم الصورة يجب ألا يتجاوز 2 ميجابايت',

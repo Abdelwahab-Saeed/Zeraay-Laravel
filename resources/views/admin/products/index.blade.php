@@ -57,7 +57,8 @@
                     <th class="px-6 py-4 font-semibold">#</th>
                     <th class="px-6 py-4 font-semibold text-center">الصورة</th>
                     <th class="px-6 py-4 font-semibold">الاسم</th>
-                    <th class="px-6 py-4 font-semibold">الفئة</th>
+                    <th class="px-6 py-4 font-semibold text-right">الفئة</th>
+                    <th class="px-6 py-4 font-semibold text-right">الشركة</th>
                     <th class="px-6 py-4 font-semibold text-left">السعر</th>
                     <th class="px-6 py-4 font-semibold text-center">المخزون</th>
                     <th class="px-6 py-4 font-semibold text-center">الحالة</th>
@@ -88,6 +89,9 @@
                             <span class="bg-slate-100 text-slate-600 text-xs px-2.5 py-1 rounded-lg font-bold">
                                 {{ $product->category->name }}
                             </span>
+                        </td>
+                        <td class="px-6 py-4 text-slate-500 text-sm">
+                            {{ $product->company->name ?? '---' }}
                         </td>
                         <td class="px-6 py-4 text-left">
                             <div class="flex flex-col items-start gap-1">

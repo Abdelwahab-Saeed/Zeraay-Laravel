@@ -28,7 +28,18 @@ class OrderController extends Controller
 
         $orders = $query->latest()->paginate(15);
         
-        return view('admin.orders.index', compact('orders'));
+        // Statistics
+        $statistics = [
+            'all' => Order::count(),
+            'pending' => Order::where('status', 'pending')->count(),
+            'processing' => Order::where('status', 'processing')->count(),
+            'shipped' => Order::where('status', 'shipped')->count(),
+            'delivered' => Order::where('status', 'delivered')->count(),
+            'cancelled' => Order::where('status', 'cancelled')->count(),
+            'total_revenue' => Order::where('status', 'delivered')->sum('final_amount'),
+        ];
+        
+        return view('admin.orders.index', compact('orders', 'statistics'));
     }
 
     /**

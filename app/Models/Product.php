@@ -25,6 +25,7 @@ class Product extends Model
         'stock',
         'status',
         'category_id',
+        'company_id',
     ];
 
     /**
@@ -45,6 +46,14 @@ class Product extends Model
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
+    }
+
+    /**
+     * Get the product's company.
+     */
+    public function company(): BelongsTo
+    {
+        return $this->belongsTo(Company::class);
     }
 
     /**
