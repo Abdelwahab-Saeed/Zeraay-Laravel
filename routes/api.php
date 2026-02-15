@@ -55,6 +55,9 @@ Route::get('/companies/{id}', [\App\Http\Controllers\API\CompanyController::clas
 
 Route::get('/technical-support', [\App\Http\Controllers\API\TechnicalSupportController::class, 'index']);
 
+Route::get('/banners', [\App\Http\Controllers\API\BannerController::class, 'index']);
+Route::get('/banners/{id}', [\App\Http\Controllers\API\BannerController::class, 'show']);
+
 
 
 

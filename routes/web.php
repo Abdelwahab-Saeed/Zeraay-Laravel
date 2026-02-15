@@ -27,6 +27,9 @@ Route::prefix('admin')->name('admin.')->middleware(['web', 'admin'])->group(func
     // Categories
     Route::resource('categories', CategoryController::class)->except(['show']);
     
+    // Banners
+    Route::resource('banners', \App\Http\Controllers\Admin\BannerController::class);
+    
     // Companies
     Route::resource('companies', CompanyController::class)->except(['show']);
     
