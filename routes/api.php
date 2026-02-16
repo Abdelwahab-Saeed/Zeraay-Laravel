@@ -51,6 +51,8 @@ Route::get('/categories/{id}', [CategoryController::class, 'show']);
 Route::get('/products', [ProductController::class, 'index']);
 Route::get('/products/{id}', [ProductController::class, 'show']);
 
+Route::get('/search', [ProductController::class, 'index']);
+
 Route::get('/companies', [\App\Http\Controllers\API\CompanyController::class, 'index']);
 Route::get('/companies/{id}', [\App\Http\Controllers\API\CompanyController::class, 'show']);
 
