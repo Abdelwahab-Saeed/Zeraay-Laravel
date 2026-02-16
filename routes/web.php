@@ -33,6 +33,9 @@ Route::prefix('admin')->name('admin.')->middleware(['web', 'admin'])->group(func
     // Addresses & Phone Numbers
     Route::resource('addresses', \App\Http\Controllers\Admin\AddressController::class);
     Route::resource('phone_numbers', \App\Http\Controllers\Admin\PhoneNumberController::class);
+
+    // Common Questions
+    Route::resource('common_questions', \App\Http\Controllers\Admin\CommonQuestionController::class);
     
     // Companies
     Route::resource('companies', CompanyController::class)->except(['show']);

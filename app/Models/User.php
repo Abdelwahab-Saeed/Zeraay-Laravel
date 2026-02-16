@@ -28,6 +28,7 @@ class User extends Authenticatable
         'engineer_code',
         'address',
         'role',
+        'image',
     ];
 
     /**

@@ -12,6 +12,7 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/me', [AuthController::class, 'me']);
+    Route::post('/update-profile', [AuthController::class, 'updateProfile']);
     
     // Cart routes
     Route::get('/cart', [CartController::class, 'index']);
@@ -60,6 +61,7 @@ Route::get('/banners/{id}', [\App\Http\Controllers\API\BannerController::class, 
 
 Route::get('/addresses', [\App\Http\Controllers\API\AddressController::class, 'index']);
 Route::get('/phone-numbers', [\App\Http\Controllers\API\PhoneNumberController::class, 'index']);
+Route::get('/common-questions', [\App\Http\Controllers\API\CommonQuestionController::class, 'index']);
 
 
 
