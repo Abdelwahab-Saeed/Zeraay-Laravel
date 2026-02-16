@@ -29,9 +29,16 @@ class ContactUsMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'New Contact Inquiry from ' . ($this->data['name'] ?? 'Zeraay'),
+            subject: 'رسالة الرد من ابلكيشن زراعي',
+            replyTo: [
+                new \Illuminate\Mail\Mailables\Address(
+                    $this->data['email'],
+                    $this->data['name']
+                ),
+            ],
         );
     }
+
 
     /**
      * Get the message content definition.
