@@ -92,8 +92,8 @@ class AuthController extends Controller
 
         if ($request->hasFile('image')) {
             // Delete old image if exists
-             if ($user->image && file_exists(public_path($user->image))) {
-                unlink(public_path($user->image));
+            if ($user->image) {
+                \Illuminate\Support\Facades\Storage::disk('public')->delete($user->image);
             }
 
             $data['image'] = $request->file('image')->store('profile_images', 'public');

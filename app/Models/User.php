@@ -103,4 +103,17 @@ class User extends Authenticatable
     {
         return $this->hasOne(Chat::class);
     }
+
+    /**
+     * Get the full URL for the user's profile image.
+     */
+    public function getImageUrlAttribute(): ?string
+    {
+        return $this->image ? asset('storage/' . $this->image) : null;
+    }
+
+    /**
+     * Accessor for appends.
+     */
+    protected $appends = ['image_url'];
 }
