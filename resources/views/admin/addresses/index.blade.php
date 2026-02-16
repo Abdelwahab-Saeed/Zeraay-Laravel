@@ -15,7 +15,7 @@
 
 <div class="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden animate-fade-in">
     <div class="overflow-x-auto">
-        <table class="w-full text-right border-collapse">
+        <table class="w-full min-w-[800px] text-right border-collapse">
             <thead>
                 <tr class="bg-slate-50/50 text-slate-400 text-sm uppercase tracking-wider border-b border-slate-100">
                     <th class="px-6 py-4 font-semibold">#</th>
@@ -31,7 +31,7 @@
                     <tr class="hover:bg-slate-50/80 transition-colors group">
                         <td class="px-6 py-4 text-slate-400 text-sm">{{ $address->id }}</td>
                         <td class="px-6 py-4">
-                            <div class="font-bold text-slate-700 group-hover:text-primary-start transition-colors">{{ $address->title }}</div>
+                            <div class="font-bold text-slate-700 group-hover:text-primary-start transition-colors whitespace-nowrap">{{ $address->title }}</div>
                         </td>
                         <td class="px-6 py-4 text-slate-500 text-sm max-w-xs">
                             <p class="truncate">{{ $address->address }}</p>

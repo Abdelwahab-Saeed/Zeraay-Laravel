@@ -15,7 +15,7 @@
 
 <div class="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden animate-fade-in">
     <div class="overflow-x-auto">
-        <table class="w-full text-right border-collapse">
+        <table class="w-full min-w-[800px] text-right border-collapse">
             <thead>
                 <tr class="bg-slate-50/50 text-slate-400 text-sm uppercase tracking-wider border-b border-slate-100">
                     <th class="px-6 py-4 font-semibold">#</th>
@@ -33,18 +33,18 @@
                         <td class="px-6 py-4">
                             <div class="flex justify-center">
                                 @if($banner->image)
-                                    <div class="w-20 h-12 rounded-xl overflow-hidden shadow-sm ring-2 ring-white group-hover:ring-slate-100 transition-all">
+                                    <div class="w-16 h-10 sm:w-20 sm:h-12 rounded-xl overflow-hidden shadow-sm ring-2 ring-white group-hover:ring-slate-100 transition-all">
                                         <img src="{{ $banner->image_url }}" alt="{{ $banner->title }}" class="w-full h-full object-cover">
                                     </div>
                                 @else
-                                    <div class="w-20 h-12 rounded-xl bg-slate-100 flex items-center justify-center text-slate-400">
+                                    <div class="w-16 h-10 sm:w-20 sm:h-12 rounded-xl bg-slate-100 flex items-center justify-center text-slate-400">
                                         <i class="fas fa-image text-xl"></i>
                                     </div>
                                 @endif
                             </div>
                         </td>
                         <td class="px-6 py-4">
-                            <div class="font-bold text-slate-700 group-hover:text-primary-start transition-colors">{{ $banner->title ?: 'بدون عنوان' }}</div>
+                            <div class="font-bold text-slate-700 group-hover:text-primary-start transition-colors whitespace-nowrap">{{ $banner->title ?: 'بدون عنوان' }}</div>
                         </td>
                         <td class="px-6 py-4 text-slate-500 text-sm max-w-xs">
                             <p class="truncate">{{ $banner->description ?: 'لا يوجد وصف' }}</p>

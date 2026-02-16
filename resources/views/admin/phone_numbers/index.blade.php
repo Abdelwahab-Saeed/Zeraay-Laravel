@@ -15,7 +15,7 @@
 
 <div class="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden animate-fade-in max-w-4xl">
     <div class="overflow-x-auto">
-        <table class="w-full text-right border-collapse">
+        <table class="w-full min-w-[600px] text-right border-collapse">
             <thead>
                 <tr class="bg-slate-50/50 text-slate-400 text-sm uppercase tracking-wider border-b border-slate-100">
                     <th class="px-6 py-4 font-semibold">#</th>
@@ -29,7 +29,7 @@
                     <tr class="hover:bg-slate-50/80 transition-colors group">
                         <td class="px-6 py-4 text-slate-400 text-sm">{{ $phoneNumber->id }}</td>
                         <td class="px-6 py-4">
-                            <div class="font-bold text-slate-700 group-hover:text-primary-start transition-colors dir-ltr text-right">{{ $phoneNumber->phone_number }}</div>
+                            <div class="font-bold text-slate-700 group-hover:text-primary-start transition-colors dir-ltr text-right whitespace-nowrap">{{ $phoneNumber->phone_number }}</div>
                         </td>
                         <td class="px-6 py-4">
                             <div class="flex justify-center">

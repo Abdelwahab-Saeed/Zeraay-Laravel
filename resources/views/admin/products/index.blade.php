@@ -51,7 +51,7 @@
 
 <div class="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden animate-fade-in">
     <div class="overflow-x-auto">
-        <table class="w-full text-right border-collapse">
+        <table class="w-full min-w-[1000px] text-right border-collapse">
             <thead>
                 <tr class="bg-slate-50/50 text-slate-400 text-sm uppercase tracking-wider border-b border-slate-100">
                     <th class="px-6 py-4 font-semibold">#</th>
@@ -83,17 +83,17 @@
                             </div>
                         </td>
                         <td class="px-6 py-4">
-                            <div class="font-bold text-slate-700 group-hover:text-primary-start transition-colors">{{ $product->name }}</div>
+                            <div class="font-bold text-slate-700 group-hover:text-primary-start transition-colors whitespace-nowrap">{{ $product->name }}</div>
                         </td>
                         <td class="px-6 py-4">
-                            <span class="bg-slate-100 text-slate-600 text-xs px-2.5 py-1 rounded-lg font-bold">
+                            <span class="bg-slate-100 text-slate-600 text-xs px-2.5 py-1 rounded-lg font-bold whitespace-nowrap">
                                 {{ $product->category->name }}
                             </span>
                         </td>
-                        <td class="px-6 py-4 text-slate-500 text-sm">
+                        <td class="px-6 py-4 text-slate-500 text-sm whitespace-nowrap">
                             {{ $product->company->name ?? '---' }}
                         </td>
-                        <td class="px-6 py-4 text-left">
+                        <td class="px-6 py-4 text-left whitespace-nowrap">
                             <div class="flex flex-col items-start gap-1">
                                 <span class="font-bold text-slate-900">{{ number_format($product->price, 2) }} ج.م</span>
                                 @if($product->discount_price)
@@ -104,7 +104,7 @@
                             </div>
                         </td>
                         <td class="px-6 py-4">
-                            <div class="flex justify-center">
+                            <div class="flex justify-center whitespace-nowrap">
                                 @if($product->stock > 0)
                                     <span class="bg-emerald-100 text-emerald-600 text-xs px-3 py-1 rounded-full font-bold">
                                         {{ $product->stock }} متوفر

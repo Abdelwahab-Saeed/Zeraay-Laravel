@@ -35,7 +35,7 @@
 
     <div class="flex min-h-screen">
         <!-- Sidebar -->
-        <aside id="sidebar" class="fixed inset-y-0 right-0 z-40 w-64 bg-sidebar-gradient text-white transform translate-x-full lg:translate-x-0 lg:static transition-transform duration-300 ease-in-out shadow-2xl lg:shadow-none">
+        <aside id="sidebar" class="fixed inset-y-0 right-0 z-40 w-64 bg-sidebar-gradient text-white transform translate-x-full lg:translate-x-0 lg:static transition-transform duration-300 ease-in-out shadow-2xl lg:shadow-none h-full overflow-y-auto scrollbar-hide">
             <div class="p-6">
                 <div class="text-center mb-8">
                     <h1 class="text-2xl font-bold tracking-tight">لوحة التحكم</h1>

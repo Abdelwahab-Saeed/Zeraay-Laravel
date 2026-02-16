@@ -140,7 +140,7 @@
 
 <div class="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden animate-fade-in">
     <div class="overflow-x-auto">
-        <table class="w-full text-right border-collapse">
+        <table class="w-full min-w-[1000px] text-right border-collapse">
             <thead>
                 <tr class="bg-slate-50/50 text-slate-400 text-sm uppercase tracking-wider border-b border-slate-100">
                     <th class="px-6 py-4 font-semibold">رقم الطلب</th>
@@ -162,17 +162,17 @@
                             <div class="text-slate-700 font-bold">{{ $order->name }}</div>
                             <div class="text-[10px] text-slate-400">وسيلة الدفع: {{ $order->paymentMethod?->name ?: 'غير محددة' }}</div>
                         </td>
-                        <td class="px-6 py-4 text-center">
+                        <td class="px-6 py-4 text-center whitespace-nowrap">
                             <span class="text-primary-start font-bold">
                                 {{ number_format($order->final_amount, 2) }} ج.م
                             </span>
                         </td>
-                        <td class="px-6 py-4 text-center">
+                        <td class="px-6 py-4 text-center whitespace-nowrap">
                             <span class="bg-slate-100 text-slate-600 text-[10px] px-2 py-1 rounded-lg font-bold">
                                 {{ $order->items_count }} أصناف
                             </span>
                         </td>
-                        <td class="px-6 py-4 text-center text-slate-500 text-sm">
+                        <td class="px-6 py-4 text-center text-slate-500 text-sm whitespace-nowrap">
                             {{ $order->created_at->format('Y-m-d H:i') }}
                         </td>
                         <td class="px-6 py-4">
