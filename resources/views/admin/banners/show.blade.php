@@ -18,7 +18,9 @@
             <form action="{{ route('admin.banners.destroy', $banner) }}" method="POST" class="inline">
                 @csrf
                 @method('DELETE')
-                <button type="submit" class="px-6 py-2.5 bg-rose-500 hover:bg-rose-600 text-white font-bold rounded-xl shadow-lg shadow-rose-500/20 transition-all-300 flex items-center" onclick="return confirm('هل أنت متأكد من رغبتك في حذف هذا البانر؟')">
+                <button type="submit" class="px-6 py-2.5 bg-rose-500 hover:bg-rose-600 text-white font-bold rounded-xl shadow-lg shadow-rose-500/20 transition-all-300 flex items-center" 
+                        data-confirm data-confirm-title="حذف البانر" 
+                        data-confirm-message="هل أنت متأكد من رغبتك في حذف هذا البانر؟">
                     <i class="fas fa-trash ml-2"></i> حذف
                 </button>
             </form>

@@ -58,6 +58,9 @@ Route::get('/technical-support', [\App\Http\Controllers\API\TechnicalSupportCont
 Route::get('/banners', [\App\Http\Controllers\API\BannerController::class, 'index']);
 Route::get('/banners/{id}', [\App\Http\Controllers\API\BannerController::class, 'show']);
 
+Route::get('/addresses', [\App\Http\Controllers\API\AddressController::class, 'index']);
+Route::get('/phone-numbers', [\App\Http\Controllers\API\PhoneNumberController::class, 'index']);
+
 
 
 

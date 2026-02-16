@@ -88,8 +88,20 @@
 
                     <a href="{{ route('admin.banners.index') }}" 
                        class="flex items-center px-4 py-3 rounded-xl transition-all-300 {{ request()->routeIs('admin.banners.*') ? 'bg-white/20 text-white shadow-lg' : 'text-white/70 hover:bg-white/10 hover:text-white' }}">
-                        <i class="fas fa-shopping-cart w-6 text-lg {{ request()->routeIs('admin.banners.*') ? 'text-white' : 'text-white/50' }}"></i>
+                        <i class="fas fa-image w-6 text-lg {{ request()->routeIs('admin.banners.*') ? 'text-white' : 'text-white/50' }}"></i>
                         <span class="mr-3 font-medium">البانرات</span>
+                    </a>
+
+                    <a href="{{ route('admin.addresses.index') }}" 
+                       class="flex items-center px-4 py-3 rounded-xl transition-all-300 {{ request()->routeIs('admin.addresses.*') ? 'bg-white/20 text-white shadow-lg' : 'text-white/70 hover:bg-white/10 hover:text-white' }}">
+                        <i class="fas fa-map-marker-alt w-6 text-lg {{ request()->routeIs('admin.addresses.*') ? 'text-white' : 'text-white/50' }}"></i>
+                        <span class="mr-3 font-medium">العناوين</span>
+                    </a>
+
+                    <a href="{{ route('admin.phone_numbers.index') }}" 
+                       class="flex items-center px-4 py-3 rounded-xl transition-all-300 {{ request()->routeIs('admin.phone_numbers.*') ? 'bg-white/20 text-white shadow-lg' : 'text-white/70 hover:bg-white/10 hover:text-white' }}">
+                        <i class="fas fa-phone w-6 text-lg {{ request()->routeIs('admin.phone_numbers.*') ? 'text-white' : 'text-white/50' }}"></i>
+                        <span class="mr-3 font-medium">أرقام التواصل</span>
                     </a>
 
                     <a href="{{ route('admin.coupons.index') }}" 

@@ -29,6 +29,10 @@ Route::prefix('admin')->name('admin.')->middleware(['web', 'admin'])->group(func
     
     // Banners
     Route::resource('banners', \App\Http\Controllers\Admin\BannerController::class);
+
+    // Addresses & Phone Numbers
+    Route::resource('addresses', \App\Http\Controllers\Admin\AddressController::class);
+    Route::resource('phone_numbers', \App\Http\Controllers\Admin\PhoneNumberController::class);
     
     // Companies
     Route::resource('companies', CompanyController::class)->except(['show']);

@@ -1,15 +1,15 @@
 @extends('admin.layouts.app')
 
-@section('title', 'إدارة البانرات')
+@section('title', 'إدارة العناوين')
 
 @section('content')
 <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8 animate-fade-in">
     <div>
-        <h2 class="text-3xl font-bold text-slate-800">إدارة البانرات</h2>
-        <p class="text-slate-500 mt-1">عرض وتنظيم البانرات الإعلانية في تطبيقك.</p>
+        <h2 class="text-3xl font-bold text-slate-800">إدارة العناوين</h2>
+        <p class="text-slate-500 mt-1">عرض وتنظيم المكاتب والفروع الخاصة بك.</p>
     </div>
-    <a href="{{ route('admin.banners.create') }}" class="inline-flex items-center justify-center px-6 py-3 bg-primary-start hover:bg-primary-end text-white font-bold rounded-2xl shadow-lg hover:shadow-primary-start/30 transition-all-300">
-        <i class="fas fa-plus ml-2"></i> إضافة بانر جديد
+    <a href="{{ route('admin.addresses.create') }}" class="inline-flex items-center justify-center px-6 py-3 bg-primary-start hover:bg-primary-end text-white font-bold rounded-2xl shadow-lg hover:shadow-primary-start/30 transition-all-300">
+        <i class="fas fa-plus ml-2"></i> إضافة عنوان جديد
     </a>
 </div>
 
@@ -19,39 +19,31 @@
             <thead>
                 <tr class="bg-slate-50/50 text-slate-400 text-sm uppercase tracking-wider border-b border-slate-100">
                     <th class="px-6 py-4 font-semibold">#</th>
-                    <th class="px-6 py-4 font-semibold text-center">الصورة</th>
-                    <th class="px-6 py-4 font-semibold">العنوان</th>
-                    <th class="px-6 py-4 font-semibold">الوصف</th>
+                    <th class="px-6 py-4 font-semibold">العنوان (الاسم)</th>
+                    <th class="px-6 py-4 font-semibold">التفاصيل</th>
+                    <th class="px-6 py-4 font-semibold text-center">المدينة</th>
                     <th class="px-6 py-4 font-semibold text-center">الحالة</th>
                     <th class="px-6 py-4 font-semibold text-left">الإجراءات</th>
                 </tr>
             </thead>
             <tbody class="divide-y divide-slate-50">
-                @forelse($banners as $banner)
+                @forelse($addresses as $address)
                     <tr class="hover:bg-slate-50/80 transition-colors group">
-                        <td class="px-6 py-4 text-slate-400 text-sm">{{ $banner->id }}</td>
+                        <td class="px-6 py-4 text-slate-400 text-sm">{{ $address->id }}</td>
                         <td class="px-6 py-4">
-                            <div class="flex justify-center">
-                                @if($banner->image)
-                                    <div class="w-20 h-12 rounded-xl overflow-hidden shadow-sm ring-2 ring-white group-hover:ring-slate-100 transition-all">
-                                        <img src="{{ $banner->image_url }}" alt="{{ $banner->title }}" class="w-full h-full object-cover">
-                                    </div>
-                                @else
-                                    <div class="w-20 h-12 rounded-xl bg-slate-100 flex items-center justify-center text-slate-400">
-                                        <i class="fas fa-image text-xl"></i>
-                                    </div>
-                                @endif
-                            </div>
-                        </td>
-                        <td class="px-6 py-4">
-                            <div class="font-bold text-slate-700 group-hover:text-primary-start transition-colors">{{ $banner->title ?: 'بدون عنوان' }}</div>
+                            <div class="font-bold text-slate-700 group-hover:text-primary-start transition-colors">{{ $address->title }}</div>
                         </td>
                         <td class="px-6 py-4 text-slate-500 text-sm max-w-xs">
-                            <p class="truncate">{{ $banner->description ?: 'لا يوجد وصف' }}</p>
+                            <p class="truncate">{{ $address->address }}</p>
+                        </td>
+                        <td class="px-6 py-4 text-center">
+                            <span class="bg-slate-100 text-slate-600 text-xs px-2.5 py-1 rounded-lg font-bold">
+                                {{ $address->city ?: 'غير محدد' }}
+                            </span>
                         </td>
                         <td class="px-6 py-4">
                             <div class="flex justify-center">
-                                @if($banner->status)
+                                @if($address->status)
                                     <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-600">
                                         <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 ml-1.5"></span>
                                         نشط
@@ -66,18 +58,18 @@
                         </td>
                         <td class="px-6 py-4">
                             <div class="flex items-center justify-end gap-2">
-                                <a href="{{ route('admin.banners.show', $banner) }}" class="p-2 text-primary-start hover:bg-primary-start/10 rounded-xl transition-all-300" title="عرض">
+                                <a href="{{ route('admin.addresses.show', $address) }}" class="p-2 text-primary-start hover:bg-primary-start/10 rounded-xl transition-all-300" title="عرض">
                                     <i class="fas fa-eye"></i>
                                 </a>
-                                <a href="{{ route('admin.banners.edit', $banner) }}" class="p-2 text-amber-500 hover:bg-amber-50 rounded-xl transition-all-300" title="تعديل">
+                                <a href="{{ route('admin.addresses.edit', $address) }}" class="p-2 text-amber-500 hover:bg-amber-50 rounded-xl transition-all-300" title="تعديل">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <form action="{{ route('admin.banners.destroy', $banner) }}" method="POST" class="inline">
+                                <form action="{{ route('admin.addresses.destroy', $address) }}" method="POST" class="inline">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="p-2 text-rose-500 hover:bg-rose-50 rounded-xl transition-all-300" 
-                                            data-confirm data-confirm-title="حذف البانر" 
-                                            data-confirm-message="هل أنت متأكد من رغبتك في حذف هذا البانر؟" 
+                                            data-confirm data-confirm-title="حذف العنوان" 
+                                            data-confirm-message="هل أنت متأكد من رغبتك في حذف هذا العنوان؟" 
                                             title="حذف">
                                         <i class="fas fa-trash"></i>
                                     </button>
@@ -88,8 +80,8 @@
                 @empty
                     <tr>
                         <td colspan="6" class="px-6 py-12 text-center text-slate-400">
-                            <i class="fas fa-image text-4xl mb-4 opacity-20"></i>
-                            <p>لا توجد بانرات حالياً</p>
+                            <i class="fas fa-map-marker-alt text-4xl mb-4 opacity-20"></i>
+                            <p>لا توجد عناوين حالياً</p>
                         </td>
                     </tr>
                 @endforelse
@@ -97,9 +89,9 @@
         </table>
     </div>
 
-    @if($banners->hasPages())
+    @if($addresses->hasPages())
         <div class="px-6 py-4 bg-slate-50/50 border-t border-slate-100">
-            {{ $banners->links() }}
+            {{ $addresses->links() }}
         </div>
     @endif
 </div>
