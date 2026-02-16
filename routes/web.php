@@ -9,9 +9,17 @@ use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\TechnicalSupportController;
 
-Route::get('/', function () {
-    return view('admin.auth.login');
-});
+use App\Http\Controllers\LandingController;
+
+Route::get('/', [LandingController::class, 'index'])->name('landing');
+Route::post('/contact', [LandingController::class, 'sendContactEmail'])->name('contact.send');
+
+Route::get('lang/{locale}', function ($locale) {
+    if (in_array($locale, ['en', 'ar'])) {
+        session(['locale' => $locale]);
+    }
+    return redirect()->back();
+})->name('lang.switch');
 
 // Admin authentication routes
 Route::prefix('admin')->name('admin.')->group(function () {

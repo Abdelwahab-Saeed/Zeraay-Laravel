@@ -167,5 +167,7 @@ return [
         'coupon_code' => 'كود الخصم',
         'notes' => 'الملاحظات',
         'engineer_code' => 'كود المهندس',
+        'title' => 'العنوان',
+        'content' => 'المحتوى',
     ],
 ];
