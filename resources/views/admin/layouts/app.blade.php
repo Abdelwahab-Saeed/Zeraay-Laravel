@@ -122,6 +122,12 @@
                         <span class="mr-3 font-medium">المحادثات</span>
                     </a>
 
+                    <a href="{{ route('admin.notifications.index') }}" 
+                       class="flex items-center px-4 py-3 rounded-xl transition-all-300 {{ request()->routeIs('admin.notifications.*') ? 'bg-white/20 text-white shadow-lg' : 'text-white/70 hover:bg-white/10 hover:text-white' }}">
+                        <i class="fas fa-bell w-6 text-lg {{ request()->routeIs('admin.notifications.*') ? 'text-white' : 'text-white/50' }}"></i>
+                        <span class="mr-3 font-medium">الإشعارات</span>
+                    </a>
+
                     <a href="{{ route('admin.common_questions.index') }}" 
                        class="flex items-center px-4 py-3 rounded-xl transition-all-300 {{ request()->routeIs('admin.common_questions.*') ? 'bg-white/20 text-white shadow-lg' : 'text-white/70 hover:bg-white/10 hover:text-white' }}">
                         <i class="fas fa-question-circle w-6 text-lg {{ request()->routeIs('admin.common_questions.*') ? 'text-white' : 'text-white/50' }}"></i>

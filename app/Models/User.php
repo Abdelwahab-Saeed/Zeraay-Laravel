@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use DevKandil\NotiFire\Traits\HasFcm;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -11,7 +12,7 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, HasApiTokens;
+    use HasFactory, Notifiable, HasApiTokens, HasFcm;
 
     /**
      * The attributes that are mass assignable.
@@ -29,6 +30,7 @@ class User extends Authenticatable
         'address',
         'role',
         'image',
+        'fcm_token',
     ];
 
     /**
@@ -102,6 +104,11 @@ class User extends Authenticatable
     public function chat()
     {
         return $this->hasOne(Chat::class);
+    }
+
+    public function notifications()
+    {
+        return $this->belongsToMany(Notification::class, 'user_notifications');
     }
 
     /**
