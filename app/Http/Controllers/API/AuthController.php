@@ -23,6 +23,7 @@ class AuthController extends Controller
             'password' => 'required|min:8|confirmed',
             'city' => 'required|string|max:255',
             'state' => 'required|string|max:255',
+            'fcm_token' => 'nullable|string',
         ]);
 
         $user = User::create([
@@ -31,6 +32,7 @@ class AuthController extends Controller
             'phone' => $data['phone'],
             'city' => $data['city'],
             'state' => $data['state'],
+            'fcm_token' => $data['fcm_token'],
         ]);
 
         $token = $user->createToken('auth_token')->plainTextToken;
@@ -47,6 +49,7 @@ class AuthController extends Controller
         $request->validate([
             'identifier' => 'required|string|max:255',
             'password' => 'required',
+            'fcm_token' => 'nullable|string',
         ]);
 
         $user = User::where('phone', $request->identifier)->first();
@@ -56,6 +59,10 @@ class AuthController extends Controller
         }
 
         $token = $user->createToken('auth_token')->plainTextToken;
+
+        if ($request->fcm_token) {
+            $user->update(['fcm_token' => $request->fcm_token]);
+        }
 
         return $this->successResponse([
             'user' => $user,

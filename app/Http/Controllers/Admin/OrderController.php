@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Notification;
 use App\Models\Order;
+use App\Notifications\OrderStatusChanged;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -61,6 +63,50 @@ class OrderController extends Controller
         ]);
 
         $order->update(['status' => $request->status]);
+
+        try {
+            if($order->user->fcm_token) {
+
+                switch ($request->status) {
+                    case 'processing':
+                        $order->user->notify(new OrderStatusChanged('جاري العمل على طلبك',  'جاري العمل على طلبك وسيتم التواصل معك في اسرع وقت من قبل فريق الدعم.'));
+                        Notification::create([
+                            'title' => 'جاري العمل على طلبك',
+                        'body' => 'جاري العمل على طلبك وسيتم التواصل معك في اسرع وقت من قبل فريق الدعم.',
+                            'user_id' => $order->user_id,
+                        ]);
+                        break;
+                    case 'shipped':
+                        $order->user->notify(new OrderStatusChanged('تم شحن طلبك بنجاح', 'لقد قمنا بشحن طلبك بنجاح سوف يصلك طلبك قريباً.'));
+                        Notification::create([
+                            'title' => 'تم شحن طلبك بنجاح',
+                            'body' => 'لقد قمنا بشحن طلبك بنجاح سوف يصلك طلبك قريباً.',
+                            'user_id' => $order->user_id,
+                        ]);
+                        break;
+                    case 'delivered':
+                        $order->user->notify(new OrderStatusChanged('تم تسليم طلبك بنجاح', 'لقد قمنا بتسليم طلبك بنجاح شكراً لك!'));
+                        Notification::create([
+                            'title' => 'تم تسليم طلبك بنجاح',
+                            'body' => 'لقد قمنا بتسليم طلبك بنجاح شكراً لك!',
+                            'user_id' => $order->user_id,
+                        ]);
+                        break;
+                    case 'cancelled':
+                        $order->user->notify(new OrderStatusChanged('تم إلغاء طلبك', 'لقد قمنا بإلغاء طلبك بنجاح شكراً لك!'));
+                        Notification::create([
+                            'title' => 'تم إلغاء طلبك',
+                            'body' => 'لقد قمنا بإلغاء طلبك بنجاح شكراً لك!',
+                            'user_id' => $order->user_id,
+                        ]);
+                        break;
+                    }
+                    
+                }
+            
+        } catch (\Exception $e) {
+            Log::error('Error updating order status: ' . $e->getMessage());
+        }
 
         return redirect()->back()->with('success', 'تم تحديث حالة الطلب بنجاح');
     }

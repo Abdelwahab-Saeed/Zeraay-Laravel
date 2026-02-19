@@ -7,6 +7,8 @@ use App\Models\Notification;
 use App\Models\User;
 use App\Notifications\CustomNotification;
 use Illuminate\Http\Request;
+use \App\Notifications;
+
 
 class NotificationController extends Controller
 {

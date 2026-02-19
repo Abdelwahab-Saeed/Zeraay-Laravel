@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Notification;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Coupon;
 use App\Models\Product;
+use App\Notifications\NewOrderPlaced;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -157,6 +159,18 @@ class OrderController extends Controller
 
             // 4. Clear cart
             $user->cartItems()->delete();
+
+            //5. Send notification
+            if($user->fcm_token) {
+                $user->notify(new NewOrderPlaced('تم تأكيد طلبك بنجاح', 'لقد استلمنا طلبك بنجاح وسيتم التواصل معك في اسرع وقت من قبل فريق الدعم.'));
+
+                Notification::create([
+                'title' => 'تم تأكيد طلبك بنجاح',
+                'body' => 'لقد استلمنا طلبك بنجاح وسيتم التواصل معك في اسرع وقت من قبل فريق الدعم.',
+                'is_custom' => false,
+                'user_id' => $user->id,
+            ]);
+            }
 
             return response()->json([
                 'success' => true,

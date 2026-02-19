@@ -42,6 +42,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/chat', [\App\Http\Controllers\API\ChatController::class, 'index']);
     Route::post('/chat', [\App\Http\Controllers\API\ChatController::class, 'store']);
     Route::post('/chat/read', [\App\Http\Controllers\API\ChatController::class, 'markRead']);
+
+    // Notification routes
+    Route::get('/notifications', [\App\Http\Controllers\API\NotificationController::class, 'index']);
+
+
 });
 
 // Public API routes for mobile app

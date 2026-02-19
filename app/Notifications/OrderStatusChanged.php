@@ -2,6 +2,8 @@
 
 namespace App\Notifications;
 
+use DevKandil\NotiFire\Enums\MessagePriority;
+use DevKandil\NotiFire\FcmMessage;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -14,9 +16,8 @@ class OrderStatusChanged extends Notification
     /**
      * Create a new notification instance.
      */
-    public function __construct()
+    public function __construct(private string $title, private string $body)
     {
-        //
     }
 
     /**
@@ -26,29 +27,24 @@ class OrderStatusChanged extends Notification
      */
     public function via(object $notifiable): array
     {
-        return ['mail'];
+        return ['fcm'];
     }
 
     /**
-     * Get the mail representation of the notification.
+     * Get the FCM representation of the notification.
      */
-    public function toMail(object $notifiable): MailMessage
+    public function toFcm(object $notifiable): FcmMessage
     {
-        return (new MailMessage)
-            ->line('The introduction to the notification.')
-            ->action('Notification Action', url('/'))
-            ->line('Thank you for using our application!');
-    }
-
-    /**
-     * Get the array representation of the notification.
-     *
-     * @return array<string, mixed>
-     */
-    public function toArray(object $notifiable): array
-    {
-        return [
-            //
-        ];
+        return FcmMessage::create($this->title, $this->body)
+            ->image('https://example.com/notification-image.jpg')
+            ->sound('default')
+            ->clickAction('OPEN_ACTIVITY')
+            ->icon('notification_icon')
+            ->color('#FF5733')
+            ->priority(MessagePriority::HIGH)
+            ->data([
+                'notification_id' => uniqid('notification_'),
+                'timestamp' => now()->toIso8601String(),
+            ]);
     }
 }

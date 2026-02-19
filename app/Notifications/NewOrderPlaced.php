@@ -16,16 +16,10 @@ class NewOrderPlaced extends Notification
     /**
      * Create a new notification instance.
      */
-    public function __construct()
+    public function __construct(private string $title, private string $body)
     {
-
     }
 
-    /**
-     * Get the notification's delivery channels.
-     *
-     * @return array<int, string>
-     */
     /**
      * Get the notification's delivery channels.
      *
@@ -41,7 +35,7 @@ class NewOrderPlaced extends Notification
      */
     public function toFcm(object $notifiable): FcmMessage
     {
-        return FcmMessage::create('تم تأكيد طلبك بنجاح', 'لقد استلمنا طلبك بنجاح وسيتم التواصل معك في اسرع وقت من قبل فريق الدعم.')
+        return FcmMessage::create($this->title, $this->body)
             ->image('https://example.com/notification-image.jpg')
             ->sound('default')
             ->clickAction('OPEN_ACTIVITY')
