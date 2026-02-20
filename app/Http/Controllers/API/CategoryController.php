@@ -57,6 +57,14 @@ class CategoryController extends Controller
             ], 404);
         }
 
+        $wishlistProductIds = [];
+        $cartProductIds = [];
+        if (auth('sanctum')->check()) {
+            $user = auth('sanctum')->user();
+            $wishlistProductIds = $user->wishlistItems()->pluck('product_id')->toArray();
+            $cartProductIds = $user->cartItems()->pluck('product_id')->toArray();
+        }
+
         return response()->json([
             'success' => true,
             'message' => 'تم جلب الفئة بنجاح',
@@ -65,7 +73,7 @@ class CategoryController extends Controller
                 'name' => $category->name,
                 'description' => $category->description,
                 'image' => $category->image_url,
-                'products' => $category->products->map(function ($product) {
+                'products' => $category->products->map(function ($product) use ($wishlistProductIds, $cartProductIds) {
                     return [
                         'id' => $product->id,
                         'name' => $product->name,
@@ -75,6 +83,8 @@ class CategoryController extends Controller
                         'discount_price' => $product->discount_price,
                         'final_price' => $product->final_price,
                         'stock' => $product->stock,
+                        'is_favourite' => in_array($product->id, $wishlistProductIds),
+                        'is_in_cart' => in_array($product->id, $cartProductIds),
                     ];
                 }),
             ],

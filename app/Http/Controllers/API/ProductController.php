@@ -72,11 +72,14 @@ class ProductController extends Controller
             ->paginate($request->input('per_page', 15));
  
         $wishlistProductIds = [];
+        $cartProductIds = [];
         if (auth('sanctum')->check()) {
-            $wishlistProductIds = auth('sanctum')->user()->wishlistItems()->pluck('product_id')->toArray();
+            $user = auth('sanctum')->user();
+            $wishlistProductIds = $user->wishlistItems()->pluck('product_id')->toArray();
+            $cartProductIds = $user->cartItems()->pluck('product_id')->toArray();
         }
 
-        $products->through(function ($product) use ($wishlistProductIds) {
+        $products->through(function ($product) use ($wishlistProductIds, $cartProductIds) {
             return [
                 'id' => $product->id,
                 'name' => $product->name,
@@ -87,6 +90,7 @@ class ProductController extends Controller
                 'final_price' => $product->final_price,
                 'stock' => $product->stock,
                 'is_favourite' => in_array($product->id, $wishlistProductIds),
+                'is_in_cart' => in_array($product->id, $cartProductIds),
                 'category' => [
                     'id' => $product->category->id,
                     'name' => $product->category->name,
@@ -138,8 +142,11 @@ class ProductController extends Controller
         }
  
         $isFavourite = false;
+        $isInCart = false;
         if (auth('sanctum')->check()) {
-            $isFavourite = auth('sanctum')->user()->wishlistItems()->where('product_id', $product->id)->exists();
+            $user = auth('sanctum')->user();
+            $isFavourite = $user->wishlistItems()->where('product_id', $product->id)->exists();
+            $isInCart = $user->cartItems()->where('product_id', $product->id)->exists();
         }
 
         return response()->json([
@@ -155,6 +162,7 @@ class ProductController extends Controller
                 'final_price' => $product->final_price,
                 'stock' => $product->stock,
                 'is_favourite' => $isFavourite,
+                'is_in_cart' => $isInCart,
                 'category' => [
                     'id' => $product->category->id,
                     'name' => $product->category->name,
