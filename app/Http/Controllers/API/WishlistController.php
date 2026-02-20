@@ -23,10 +23,12 @@ class WishlistController extends Controller
             ->withActiveProducts()
             ->paginate(15);
 
+        $cartProductIds = auth()->user()->cartItems()->pluck('product_id')->toArray();
+        
         return response()->json([
             'success' => true,
             'message' => 'تم جلب قائمة الأمنيات بنجاح',
-            'data' => $wishlistItems->map(function ($item) {
+            'data' => $wishlistItems->map(function ($item) use ($cartProductIds) {
                 return [
                     'id' => $item->id,
                     'product' => [
@@ -39,6 +41,8 @@ class WishlistController extends Controller
                         'final_price' => $item->product->final_price,
                         'stock' => $item->product->stock,
                         'in_stock' => $item->product->stock > 0,
+                        'is_favourite' => true, // Since it's in the wishlist
+                        'is_in_cart' => in_array($item->product->id, $cartProductIds),
                     ],
                     'added_at' => $item->created_at->format('Y-m-d H:i:s'),
                 ];
