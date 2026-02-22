@@ -14,7 +14,7 @@ class AuthController extends Controller
      */
     public function showLoginForm()
     {
-        if (Auth::check() && Auth::user()->role === 'admin') {
+        if (Auth::check() && in_array(Auth::user()->role, ['admin', 'customer_service'])) {
             return redirect()->route('admin.dashboard');
         }
         
@@ -40,8 +40,8 @@ class AuthController extends Controller
         if (Auth::attempt($credentials, $remember)) {
             $request->session()->regenerate();
 
-            // Check if user is admin
-            if (Auth::user()->role !== 'admin') {
+            // Check if user is admin or customer_service
+            if (!in_array(Auth::user()->role, ['admin', 'customer_service'])) {
                 Auth::logout();
                 return back()->withErrors([
                     'email' => 'غير مصرح لك بالوصول إلى لوحة التحكم',

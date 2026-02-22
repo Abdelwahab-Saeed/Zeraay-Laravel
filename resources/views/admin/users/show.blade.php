@@ -45,6 +45,8 @@
                 <div class="text-xl font-bold">
                     @if($user->role === 'admin')
                         <span class="text-rose-400"><i class="fas fa-shield-alt ml-2"></i> مدير النظام</span>
+                    @elseif($user->role === 'customer_service')
+                        <span class="text-amber-400"><i class="fas fa-headset ml-2"></i> خدمة عملاء</span>
                     @else
                         <span class="text-emerald-400"><i class="fas fa-user ml-2"></i> مستخدم عادي</span>
                     @endif
