@@ -23,6 +23,15 @@
                 @error('name') <p class="text-rose-500 text-xs mt-2 font-medium">{{ $message }}</p> @enderror
             </div>
 
+            <div>
+                <label for="phone_number" class="block text-sm font-bold text-slate-700 mb-3">رقم الهاتف (للمحافظ الإلكترونية)</label>
+                <input type="text" name="phone_number" id="phone_number" value="{{ old('phone_number', $paymentMethod->phone_number) }}" 
+                       class="w-full px-4 py-4 rounded-2xl border border-slate-200 focus:border-primary-start focus:ring-4 focus:ring-primary-start/10 transition-all-300 outline-none text-sm" 
+                       placeholder="01xxxxxxxxx">
+                <p class="text-xs text-slate-400 mt-1">اختياري — أضفه فقط لوسائل الدفع الإلكترونية مثل فودافون كاش وانستاباي.</p>
+                @error('phone_number') <p class="text-rose-500 text-xs mt-2 font-medium">{{ $message }}</p> @enderror
+            </div>
+
             <div class="flex items-center">
                 <label class="relative inline-flex items-center cursor-pointer group">
                     <input type="hidden" name="status" value="0">

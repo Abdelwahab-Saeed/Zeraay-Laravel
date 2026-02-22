@@ -19,7 +19,8 @@
             <thead>
                 <tr class="bg-slate-50/50 text-slate-400 text-sm uppercase tracking-wider border-b border-slate-100">
                     <th class="px-6 py-4 font-semibold">الاسم</th>
-                    <th class="px-6 py-4 font-semibold text-center">الحالة</th>
+                    <th class="px-6 py-4 font-semibold text-center">رقم الهاتف</th>
+                    <th class="px-6 py-4 font-semibold text-center"></th>الحالة</th>
                     <th class="px-6 py-4 font-semibold text-center">عدد الطلبات</th>
                     <th class="px-6 py-4 font-semibold text-left">الإجراءات</th>
                 </tr>
@@ -28,6 +29,13 @@
                 @forelse($paymentMethods as $method)
                     <tr class="hover:bg-slate-50/80 transition-colors group">
                         <td class="px-6 py-4 font-bold text-slate-700">{{ $method->name }}</td>
+                        <td class="px-6 py-4 text-center">
+                            @if($method->phone_number)
+                                <span class="font-mono text-sm text-slate-600 bg-slate-100 px-3 py-1 rounded-lg">{{ $method->phone_number }}</span>
+                            @else
+                                <span class="text-slate-400 text-sm">N/A</span>
+                            @endif
+                        </td>
                         <td class="px-6 py-4">
                             <div class="flex justify-center">
                                 @if($method->status)
@@ -64,7 +72,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="4" class="px-6 py-12 text-center text-slate-400">
+                        <td colspan="5" class="px-6 py-12 text-center text-slate-400">
                             <i class="fas fa-credit-card text-4xl mb-4 opacity-20"></i>
                             <p>لا توجد وسائل دفع حالياً</p>
                         </td>

@@ -32,6 +32,7 @@ class PaymentMethodController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
+            'phone_number' => 'nullable|string|max:20',
             'status' => 'boolean',
         ], [
             'name.required' => 'يرجى إدخال اسم وسيلة الدفع',
@@ -39,7 +40,7 @@ class PaymentMethodController extends Controller
             'name.max' => 'اسم وسيلة الدفع طويل جداً',
         ]);
 
-        PaymentMethod::create($request->all());
+        PaymentMethod::create($request->only(['name', 'phone_number', 'status']));
 
         return redirect()->route('admin.payment_methods.index')
             ->with('success', 'تمت إضافة وسيلة الدفع بنجاح');
@@ -60,6 +61,7 @@ class PaymentMethodController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
+            'phone_number' => 'nullable|string|max:20',
             'status' => 'boolean',
         ], [
             'name.required' => 'يرجى إدخال اسم وسيلة الدفع',
@@ -67,7 +69,7 @@ class PaymentMethodController extends Controller
             'name.max' => 'اسم وسيلة الدفع طويل جداً',
         ]);
 
-        $paymentMethod->update($request->all());
+        $paymentMethod->update($request->only(['name', 'phone_number', 'status']));
 
         return redirect()->route('admin.payment_methods.index')
             ->with('success', 'تم تحديث وسيلة الدفع بنجاح');

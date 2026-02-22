@@ -9,6 +9,7 @@ class PaymentMethod extends Model
 {
     protected $fillable = [
         'name',
+        'phone_number',
         'status',
     ];
 
