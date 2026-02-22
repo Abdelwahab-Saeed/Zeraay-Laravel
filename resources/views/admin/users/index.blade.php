@@ -8,6 +8,9 @@
         <h2 class="text-3xl font-bold text-slate-800">إدارة المستخدمين</h2>
         <p class="text-slate-500 mt-1">عرض وإدارة كافة المستخدمين المسجلين في النظام.</p>
     </div>
+    <a href="{{ route('admin.users.create') }}" class="py-4 px-8 bg-primary-start hover:bg-primary-end text-white font-bold rounded-2xl shadow-lg hover:shadow-primary-start/30 transition-all-300 flex items-center justify-center">
+        <i class="fas fa-user-plus ml-2"></i> إضافة مستخدم جديد
+    </a>
 </div>
 
 <!-- Search Section -->
@@ -35,7 +38,7 @@
                     <th class="px-6 py-4 font-semibold">#</th>
                     <th class="px-6 py-4 font-semibold">المستخدم</th>
                     <th class="px-6 py-4 font-semibold">الهاتف</th>
-                    <th class="px-6 py-4 font-semibold">المدينة</th>
+                    <th class="px-6 py-4 font-semibold text-center">الدور</th>
                     <th class="px-6 py-4 font-semibold text-center">تاريخ التسجيل</th>
                     <th class="px-6 py-4 font-semibold text-left">الإجراءات</th>
                 </tr>
@@ -56,10 +59,14 @@
                             </div>
                         </td>
                         <td class="px-6 py-4 text-slate-600 text-sm">{{ $user->phone ?? '-' }}</td>
-                        <td class="px-6 py-4">
-                            <span class="bg-slate-100 text-slate-600 text-[10px] px-2 py-1 rounded-lg font-bold uppercase tracking-wider">
-                                {{ $user->city ?? 'غير محدد' }}
-                            </span>
+                        <td class="px-6 py-4 text-center">
+                            @if($user->role === 'admin')
+                                <span class="bg-rose-100 text-rose-600 text-[10px] px-2.5 py-1 rounded-lg font-bold uppercase tracking-wider">مدير</span>
+                            @elseif($user->role === 'customer_service')
+                                <span class="bg-amber-100 text-amber-600 text-[10px] px-2.5 py-1 rounded-lg font-bold uppercase tracking-wider">خدمة عملاء</span>
+                            @else
+                                <span class="bg-slate-100 text-slate-600 text-[10px] px-2.5 py-1 rounded-lg font-bold uppercase tracking-wider">مستخدم</span>
+                            @endif
                         </td>
                         <td class="px-6 py-4 text-center text-slate-500 text-sm">
                             {{ $user->created_at->format('Y-m-d') }}

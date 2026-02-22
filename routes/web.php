@@ -53,7 +53,7 @@ Route::prefix('admin')->name('admin.')->middleware(['web', 'admin'])->group(func
     Route::resource('products', ProductController::class)->except(['show']);
     
     // Users
-    Route::resource('users', UserController::class)->except(['create', 'store']);
+    Route::resource('users', UserController::class);
     
     // Coupons
     Route::resource('coupons', \App\Http\Controllers\Admin\CouponController::class);
