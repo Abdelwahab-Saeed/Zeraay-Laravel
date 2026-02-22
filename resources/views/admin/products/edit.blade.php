@@ -90,6 +90,21 @@
                             @enderror
                         </div>
 
+                        @if(auth()->user()->isAdmin())
+                        <div>
+                            <label for="cost_price" class="block text-sm font-bold text-slate-700 mb-2">سعر التكلفة</label>
+                            <div class="relative">
+                                <input type="number" step="0.01" 
+                                       class="w-full pl-12 pr-4 py-3 rounded-xl border border-slate-200 focus:border-amber-500 focus:ring-4 focus:ring-amber-500/10 transition-all-300 outline-none @error('cost_price') border-rose-500 ring-rose-500/10 @enderror" 
+                                       id="cost_price" name="cost_price" value="{{ old('cost_price', $product->cost_price) }}" placeholder="0.00">
+                                <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-xs uppercase">ج.م</span>
+                            </div>
+                            @error('cost_price')
+                                <p class="mt-1 text-xs text-rose-500 font-medium">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        @endif
+
                         <div>
                             <label for="stock" class="block text-sm font-bold text-slate-700 mb-2">الكمية <span class="text-rose-500">*</span></label>
                             <input type="number" 

@@ -43,6 +43,17 @@ class OrderController extends Controller
 
         if (auth()->user()->isAdmin()) {
             $statistics['total_revenue'] = Order::where('status', 'delivered')->sum('final_amount');
+            
+            // Calculate Profit: delivered revenue - cost price of items in delivered orders
+            // We need to join with order_items and products to get cost_price
+            $total_cost = \DB::table('order_items')
+                ->join('orders', 'order_items.order_id', '=', 'orders.id')
+                ->join('products', 'order_items.product_id', '=', 'products.id')
+                ->where('orders.status', 'delivered')
+                ->selectRaw('SUM(order_items.quantity * products.cost_price) as total_cost')
+                ->first()->total_cost ?? 0;
+            
+            $statistics['profit'] = $statistics['total_revenue'] - $total_cost;
         }
         
         return view('admin.orders.index', compact('orders', 'statistics'));

@@ -42,6 +42,20 @@
             <p class="text-xs text-slate-400 mt-1">إجمالي المبيعات (المستلمة)</p>
         </div>
     </div>
+
+    <!-- Profit -->
+    <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 flex flex-col justify-between">
+        <div class="flex items-center justify-between mb-4">
+            <div class="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-500">
+                <i class="fas fa-chart-line"></i>
+            </div>
+            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">الأرباح</span>
+        </div>
+        <div>
+            <h4 class="text-xl font-black text-slate-800">{{ number_format($statistics['profit'], 2) }}</h4>
+            <p class="text-xs text-slate-400 mt-1">صافي الربح (بعد التكلفة)</p>
+        </div>
+    </div>
     @endif
 
     <!-- Pending Orders -->
