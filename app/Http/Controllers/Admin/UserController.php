@@ -15,6 +15,9 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
+        if (auth()->user()->role !== 'admin') {
+            return redirect()->route('admin.dashboard')->with('error', 'غير مصرح لك بالوصول إلى إدارة المستخدمين');
+        }
         $query = User::query();
 
         // Search by name or email
@@ -36,6 +39,9 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
+        if (auth()->user()->role !== 'admin') {
+            return redirect()->route('admin.dashboard')->with('error', 'غير مصرح لك بالوصول إلى إدارة المستخدمين');
+        }
         return view('admin.users.show', compact('user'));
     }
 
@@ -44,6 +50,9 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        if (auth()->user()->role !== 'admin') {
+            return redirect()->route('admin.dashboard')->with('error', 'غير مصرح لك بالوصول إلى إدارة المستخدمين');
+        }
         return view('admin.users.edit', compact('user'));
     }
 
@@ -52,6 +61,9 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+        if (auth()->user()->role !== 'admin') {
+            return redirect()->route('admin.dashboard')->with('error', 'غير مصرح لك بالوصول إلى إدارة المستخدمين');
+        }
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $user->id],
@@ -86,6 +98,9 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        if (auth()->user()->role !== 'admin') {
+            return redirect()->route('admin.dashboard')->with('error', 'غير مصرح لك بالوصول إلى إدارة المستخدمين');
+        }
         $user->delete();
 
         return redirect()->route('admin.users.index')

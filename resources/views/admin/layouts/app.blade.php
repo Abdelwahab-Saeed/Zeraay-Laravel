@@ -80,11 +80,13 @@
                     </a>
 
 
+                    @if(auth()->user()->isAdmin())
                     <a href="{{ route('admin.users.index') }}" 
                        class="flex items-center px-4 py-3 rounded-xl transition-all-300 {{ request()->routeIs('admin.users.*') ? 'bg-white/20 text-white shadow-lg' : 'text-white/70 hover:bg-white/10 hover:text-white' }}">
                         <i class="fas fa-users w-6 text-lg {{ request()->routeIs('admin.users.*') ? 'text-white' : 'text-white/50' }}"></i>
                         <span class="mr-3 font-medium">المستخدمون</span>
                     </a>
+                    @endif
 
                     <a href="{{ route('admin.banners.index') }}" 
                        class="flex items-center px-4 py-3 rounded-xl transition-all-300 {{ request()->routeIs('admin.banners.*') ? 'bg-white/20 text-white shadow-lg' : 'text-white/70 hover:bg-white/10 hover:text-white' }}">

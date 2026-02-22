@@ -21,8 +21,8 @@ class IsAdmin
             return redirect()->route('admin.login')->with('error', 'يجب تسجيل الدخول أولاً');
         }
 
-        // Check if user has admin role
-        if (auth()->user()->role !== 'admin') {
+        // Check if user has admin or customer_service role
+        if (!in_array(auth()->user()->role, ['admin', 'customer_service'])) {
             Auth::logout();
             return redirect()->route('admin.login')->with('error', 'غير مصرح لك بالوصول إلى هذه الصفحة');
         }

@@ -7,6 +7,7 @@ use App\Models\Notification;
 use App\Models\Order;
 use App\Notifications\OrderStatusChanged;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class OrderController extends Controller
 {
@@ -38,8 +39,11 @@ class OrderController extends Controller
             'shipped' => Order::where('status', 'shipped')->count(),
             'delivered' => Order::where('status', 'delivered')->count(),
             'cancelled' => Order::where('status', 'cancelled')->count(),
-            'total_revenue' => Order::where('status', 'delivered')->sum('final_amount'),
         ];
+
+        if (auth()->user()->isAdmin()) {
+            $statistics['total_revenue'] = Order::where('status', 'delivered')->sum('final_amount');
+        }
         
         return view('admin.orders.index', compact('orders', 'statistics'));
     }

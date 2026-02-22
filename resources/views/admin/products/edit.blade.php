@@ -66,7 +66,8 @@
                             <label for="price" class="block text-sm font-bold text-slate-700 mb-2">السعر <span class="text-rose-500">*</span></label>
                             <div class="relative">
                                 <input type="number" step="0.01" 
-                                       class="w-full pl-12 pr-4 py-3 rounded-xl border border-slate-200 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 transition-all-300 outline-none @error('price') border-rose-500 ring-rose-500/10 @enderror" 
+                                       {{ !auth()->user()->isAdmin() ? 'readonly' : '' }}
+                                       class="w-full pl-12 pr-4 py-3 rounded-xl border border-slate-200 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 transition-all-300 outline-none @error('price') border-rose-500 ring-rose-500/10 @enderror {{ !auth()->user()->isAdmin() ? 'bg-slate-50 cursor-not-allowed' : '' }}" 
                                        id="price" name="price" value="{{ old('price', $product->price) }}">
                                 <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-xs uppercase">ج.م</span>
                             </div>
@@ -79,7 +80,8 @@
                             <label for="discount_price" class="block text-sm font-bold text-slate-700 mb-2">سعر الخصم</label>
                             <div class="relative">
                                 <input type="number" step="0.01" 
-                                       class="w-full pl-12 pr-4 py-3 rounded-xl border border-slate-200 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 transition-all-300 outline-none @error('discount_price') border-rose-500 ring-rose-500/10 @enderror" 
+                                       {{ !auth()->user()->isAdmin() ? 'readonly' : '' }}
+                                       class="w-full pl-12 pr-4 py-3 rounded-xl border border-slate-200 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 transition-all-300 outline-none @error('discount_price') border-rose-500 ring-rose-500/10 @enderror {{ !auth()->user()->isAdmin() ? 'bg-slate-50 cursor-not-allowed' : '' }}" 
                                        id="discount_price" name="discount_price" value="{{ old('discount_price', $product->discount_price) }}">
                                 <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-xs uppercase">ج.م</span>
                             </div>

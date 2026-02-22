@@ -85,6 +85,10 @@ class ProductController extends Controller
     {
         $data = $request->validated();
 
+        if (!auth()->user()->isAdmin()) {
+            unset($data['price'], $data['discount_price']);
+        }
+
         // Handle image upload
         if ($request->hasFile('image')) {
             $data['image'] = $request->file('image')->store('products', 'public');
@@ -130,6 +134,10 @@ class ProductController extends Controller
     public function update(UpdateProductRequest $request, Product $product)
     {
         $data = $request->validated();
+
+        if (!auth()->user()->isAdmin()) {
+            unset($data['price'], $data['discount_price']);
+        }
 
         // Handle image upload
         if ($request->hasFile('image')) {

@@ -29,6 +29,7 @@
 <!-- Statistics Cards -->
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 mb-8 animate-fade-in">
     <!-- Total Revenue -->
+    @if(auth()->user()->isAdmin())
     <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 flex flex-col justify-between">
         <div class="flex items-center justify-between mb-4">
             <div class="w-10 h-10 rounded-xl bg-primary-start/10 flex items-center justify-center text-primary-start">
@@ -41,6 +42,7 @@
             <p class="text-xs text-slate-400 mt-1">إجمالي المبيعات (المستلمة)</p>
         </div>
     </div>
+    @endif
 
     <!-- Pending Orders -->
     <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 flex flex-col justify-between">

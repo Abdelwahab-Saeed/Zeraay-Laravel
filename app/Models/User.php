@@ -65,6 +65,14 @@ class User extends Authenticatable
     }
 
     /**
+     * Check if user is customer service.
+     */
+    public function isCustomerService(): bool
+    {
+        return $this->role === 'customer_service';
+    }
+
+    /**
      * Get the user's cart items.
      */
     public function cartItems()
