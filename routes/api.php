@@ -37,6 +37,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/orders', [\App\Http\Controllers\API\OrderController::class, 'index']);
     Route::post('/orders', [\App\Http\Controllers\API\OrderController::class, 'store']);
     Route::get('/orders/{order}', [\App\Http\Controllers\API\OrderController::class, 'show']);
+    Route::post('/orders/{order}/pay', [\App\Http\Controllers\API\OrderController::class, 'submitPayment']);
 
     // Chat routes
     Route::get('/chat', [\App\Http\Controllers\API\ChatController::class, 'index']);

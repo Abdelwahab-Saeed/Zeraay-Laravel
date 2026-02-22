@@ -182,4 +182,57 @@ class OrderController extends Controller
             ], 201);
         });
     }
+
+    /**
+     * Submit payment proof for an order.
+     * Accepts pay_image and payment_method_id.
+     */
+    public function submitPayment(Request $request, Order $order)
+    {
+        // Ensure this order belongs to the authenticated user
+        if ($order->user_id !== auth()->id()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'غير مصرح لك بتعديل هذا الطلب',
+            ], 403);
+        }
+
+        // Only allow updating payment for pending orders
+        if ($order->status !== 'processing') {
+            return response()->json([
+                'success' => false,
+                'message' => 'لا يمكن تحديث بيانات الدفع لطلب في هذه الحالة',
+            ], 422);
+        }
+
+        $request->validate([
+            'pay_image' => 'required|image|mimes:jpeg,png,jpg|max:5120',
+            'payment_method_id' => 'required|exists:payment_methods,id,status,1',
+        ], [
+            'pay_image.required' => 'يرجى إرفاق صورة إثبات الدفع',
+            'pay_image.image' => 'يجب أن يكون الملف صورة',
+            'pay_image.mimes' => 'يجب أن تكون الصورة بصيغة jpeg أو png أو jpg',
+            'pay_image.max' => 'حجم الصورة يجب ألا يتجاوز 5 ميجابايت',
+            'payment_method_id.required' => 'يرجى اختيار وسيلة الدفع',
+            'payment_method_id.exists' => 'وسيلة الدفع المحددة غير متاحة',
+        ]);
+
+        // Store the image
+        $path = $request->file('pay_image')->store('pay_images', 'public');
+
+        $order->update([
+            'pay_image' => $path,
+            'payment_method_id' => $request->payment_method_id,
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'تم رفع إثبات الدفع بنجاح، سيتم مراجعته من قبل الفريق',
+            'data' => [
+                'order_id' => $order->id,
+                'pay_image_url' => asset('storage/' . $path),
+                'payment_method_id' => $order->payment_method_id,
+            ]
+        ]);
+    }
 }

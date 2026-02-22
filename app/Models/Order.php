@@ -21,6 +21,7 @@ class Order extends Model
         'address',
         'state',
         'notes',
+        'pay_image',
     ];
 
     protected $casts = [

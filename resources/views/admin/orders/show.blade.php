@@ -191,6 +191,27 @@
                 </div>
                 <i class="fas fa-box absolute -bottom-4 -left-4 text-8xl text-white/5 opacity-20"></i>
             </div>
+
+            <!-- Pay Image Card -->
+            @if($order->pay_image)
+            <div class="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden">
+                <div class="p-5 border-b border-slate-50 bg-slate-50/50 flex items-center justify-between">
+                    <h3 class="font-bold text-slate-800 flex items-center text-sm">
+                        <i class="fas fa-receipt ml-2 text-emerald-500"></i> إثبات الدفع
+                    </h3>
+                    <a href="{{ asset('storage/' . $order->pay_image) }}" target="_blank" class="text-xs font-bold text-primary-start hover:underline">
+                        <i class="fas fa-external-link-alt ml-1"></i> عرض كامل
+                    </a>
+                </div>
+                <div class="p-4">
+                    <a href="{{ asset('storage/' . $order->pay_image) }}" target="_blank">
+                        <img src="{{ asset('storage/' . $order->pay_image) }}" 
+                             alt="إثبات الدفع" 
+                             class="w-full rounded-2xl object-cover border border-slate-100 hover:opacity-90 transition-opacity cursor-pointer">
+                    </a>
+                </div>
+            </div>
+            @endif
         </div>
     </div>
 </div>
