@@ -80,7 +80,6 @@ class OrderController extends Controller
             'phone' => 'required|string',
             'address' => 'required|string',
             'state' => 'required|string',
-            'payment_method_id' => 'required|exists:payment_methods,id,status,1',
             'notes' => 'nullable|string',
             'coupon_code' => 'nullable|string',
         ]);
@@ -123,7 +122,6 @@ class OrderController extends Controller
                 'user_id' => $user->id,
                 'name' => $request->name,
                 'coupon_id' => $couponId,
-                'payment_method_id' => $request->payment_method_id,
                 'total_amount' => $totalAmount,
                 'discount_amount' => $discountAmount,
                 'final_amount' => $finalAmount,
