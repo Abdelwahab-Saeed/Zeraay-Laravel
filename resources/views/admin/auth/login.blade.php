@@ -125,9 +125,13 @@
             </div>
         </div>
         
-        <div class="text-center mt-8 text-slate-400">
-            <p class="text-xs font-medium">© 2026 زراعي. جميع الحقوق محفوظة لشركة فلك انوفيشن لتطوير البرمجيات.</p>
-        </div>
+        <!-- Copyright Footer -->
+        <div class="px-6 py-3 text-center">
+            <p class="text-s text-slate-500"> 
+                Developed and Maintained by <a href="https://falak-innovation.com" target="_blank" class="text-primary-500 hover:text-primary-400">Falak Innovation</a> 
+                © All Rights Reserved - Zeraay.
+            </p>
+        </div>      
     </div>
 </body>
 </html>

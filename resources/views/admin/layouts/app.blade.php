@@ -191,9 +191,13 @@
 
             <!-- Footer -->
             <footer class="mt-20 py-6 border-t border-slate-200/60 text-center">
-                <p class="text-xs text-slate-400 font-medium">
-                    &copy; {{ date('Y') }} زراعي. جميع الحقوق محفوظة لشركة فلك انوفيشن لتطوير البرمجيات.
-                </p>
+                <!-- Copyright Footer -->
+                <div class="px-6 py-3 text-center">
+                    <p class="text-s text-slate-500"> 
+                        Developed and Maintained by <a href="https://falak-innovation.com" target="_blank" class="text-primary-500 hover:text-primary-400">Falak Innovation</a> 
+                        © All Rights Reserved - Zeraay.
+                    </p>
+                </div>    
             </footer>
         </main>
     </div>
