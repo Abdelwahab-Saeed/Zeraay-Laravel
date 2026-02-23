@@ -29,7 +29,7 @@ class OrderController extends Controller
             })->orWhere('phone', 'like', '%' . $request->search . '%');
         }
 
-        $orders = $query->latest()->paginate(15);
+        $orders = $query->latest()->paginate(5);
         
         // Statistics
         $statistics = [
