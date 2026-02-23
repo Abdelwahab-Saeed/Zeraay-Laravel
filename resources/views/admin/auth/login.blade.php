@@ -126,7 +126,7 @@
         </div>
         
         <div class="text-center mt-8 text-slate-400">
-            <p class="text-xs font-medium">© 2026 زراعي. جميع الحقوق محفوظة</p>
+            <p class="text-xs font-medium">© 2026 زراعي. جميع الحقوق محفوظة لشركة فلك انوفيشن لتطوير البرمجيات.</p>
         </div>
     </div>
 </body>

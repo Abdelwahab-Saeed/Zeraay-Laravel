@@ -159,8 +159,8 @@
         </aside>
 
         <!-- Main Content -->
-        <main class="flex-1 w-full bg-slate-50 lg:px-8 px-4 py-8">
-            <div class="max-w-7xl mx-auto">
+        <main class="flex-1 w-full bg-slate-50 lg:px-8 px-4 py-8 flex flex-col min-h-screen">
+            <div class="max-w-7xl mx-auto flex-1 w-full">
                 {{-- Flash Messages --}}
                 @if(session('success'))
                     <div id="alert-success" class="flex items-center p-4 mb-6 text-emerald-800 rounded-2xl bg-emerald-50 border border-emerald-100 animate-fade-in">
@@ -188,6 +188,13 @@
 
                 @yield('content')
             </div>
+
+            <!-- Footer -->
+            <footer class="mt-20 py-6 border-t border-slate-200/60 text-center">
+                <p class="text-xs text-slate-400 font-medium">
+                    &copy; {{ date('Y') }} زراعي. جميع الحقوق محفوظة لشركة فلك انوفيشن لتطوير البرمجيات.
+                </p>
+            </footer>
         </main>
     </div>
 
