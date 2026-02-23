@@ -36,6 +36,7 @@ class OrderController extends Controller
                     'final_amount' => $order->final_amount,
                     'status' => $order->status,
                     'items_count' => $order->items_count,
+                    'is_receipt_uploaded' => !is_null($order->pay_image),
                     'created_at' => $order->created_at->format('Y-m-d H:i'),
                 ];
             }),
@@ -66,7 +67,9 @@ class OrderController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'تم جلب تفاصيل الطلب بنجاح',
-            'data' => $order
+            'data' => array_merge($order->toArray(), [
+                'is_receipt_uploaded' => !is_null($order->pay_image),
+            ])
         ]);
     }
 
