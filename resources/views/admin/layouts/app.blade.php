@@ -142,6 +142,12 @@
                         <span class="mr-3 font-medium">الدعم الفني</span>
                     </a>
 
+                    <a href="{{ route('admin.privacy_policies.index') }}" 
+                       class="flex items-center px-4 py-3 rounded-xl transition-all-300 {{ request()->routeIs('admin.privacy_policies.*') ? 'bg-white/20 text-white shadow-lg' : 'text-white/70 hover:bg-white/10 hover:text-white' }}">
+                        <i class="fas fa-headset w-6 text-lg {{ request()->routeIs('admin.privacy_policies.*') ? 'text-white' : 'text-white/50' }}"></i>
+                        <span class="mr-3 font-medium">سياسة الخصوصية</span>
+                    </a>
+
                     <div class="pt-6 mt-6 border-t border-white/10">
                         <form action="{{ route('admin.logout') }}" method="POST" novalidate>
                             @csrf

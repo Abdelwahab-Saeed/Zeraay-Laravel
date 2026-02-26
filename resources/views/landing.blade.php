@@ -30,6 +30,7 @@
             <ul class="nav-links">
                 <li><a href="#home">{{ __('landing.nav.home') }}</a></li>
                 <li><a href="#about">{{ __('landing.nav.about') }}</a></li>
+                <li><a href="{{ route('privacy-policy') }}" target="_blank">{{ __('landing.nav.privacy_policy') }}</a></li>
                 <li><a href="#products">{{ __('landing.nav.products') }}</a></li>
                 <li><a href="#why-us">{{ __('landing.nav.why_us') }}</a></li>
                 <li><a href="#contact">{{ __('landing.nav.contact') }}</a></li>

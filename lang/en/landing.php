@@ -5,6 +5,7 @@ return [
     'nav' => [
         'home' => 'Home',
         'about' => 'About Us',
+        'privacy_policy' => 'Privacy Policy',
         'products' => 'Products',
         'why_us' => 'Why Choose Us',
         'contact' => 'Contact Us',

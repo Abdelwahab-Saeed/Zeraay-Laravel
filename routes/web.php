@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\TechnicalSupportController;
 use App\Http\Controllers\LandingController;
 
 Route::get('/', [LandingController::class, 'index'])->name('landing');
+Route::get('/privacy-policy', [\App\Http\Controllers\PrivacyPolicyController::class, 'index'])->name('privacy-policy');
 Route::post('/contact', [LandingController::class, 'sendContactEmail'])->name('contact.send');
 
 Route::get('lang/{locale}', function ($locale) {
@@ -44,6 +45,9 @@ Route::prefix('admin')->name('admin.')->middleware(['web', 'admin'])->group(func
 
     // Common Questions
     Route::resource('common_questions', \App\Http\Controllers\Admin\CommonQuestionController::class);
+    
+    // Privacy Policies
+    Route::resource('privacy_policies', \App\Http\Controllers\Admin\PrivacyPolicyController::class);
     
     // Companies
     Route::resource('companies', CompanyController::class)->except(['show']);

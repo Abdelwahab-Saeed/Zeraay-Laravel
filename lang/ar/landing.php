@@ -5,6 +5,7 @@ return [
     'nav' => [
         'home' => 'الرئيسية',
         'about' => 'من نحن',
+        'privacy_policy' => 'سياسة الخصوصية',
         'products' => 'المنتجات',
         'why_us' => 'لماذا نحن',
         'contact' => 'اتصل بنا',
