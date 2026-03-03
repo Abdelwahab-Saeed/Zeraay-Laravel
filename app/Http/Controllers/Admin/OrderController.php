@@ -7,7 +7,10 @@ use App\Models\Notification;
 use App\Models\Order;
 use App\Notifications\OrderStatusChanged;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
+use Barryvdh\Snappy\Facades\SnappyPdf;
+
 
 class OrderController extends Controller
 {
@@ -124,5 +127,29 @@ class OrderController extends Controller
         }
 
         return redirect()->back()->with('success', 'تم تحديث حالة الطلب بنجاح');
+    }
+
+    public function generateInvoice(int $orderId)
+    {
+        $order = Order::findOrFail($orderId);
+
+        $order->load(['user', 'items.product', 'coupon', 'paymentMethod']);
+       
+        $data = [
+            'order' => $order,
+        ];
+
+        $pdf = SnappyPdf::loadView('admin.invoice.generate-invoice', $data);
+
+        $todayDate = Carbon::now()->format('Y-m-d');
+
+        return $pdf->download('invoice-' . $orderId . '-' . $todayDate . '.pdf');
+    }
+    
+    public function viewInvoice(int $orderId)
+    {
+        $order = Order::findOrFail($orderId);
+        $order->load(['user', 'items.product', 'coupon', 'paymentMethod']);
+        return view('admin.invoice.generate-invoice', compact('order'));
     }
 }

@@ -25,7 +25,17 @@
             <a href="{{ route('admin.orders.index') }}" class="text-slate-500 hover:text-primary-start transition-colors mb-4 inline-flex items-center text-sm font-medium">
                 <i class="fas fa-arrow-right ml-2 text-xs"></i> العودة للطلبات
             </a>
-            <h2 class="text-3xl font-bold text-slate-800">تفاصيل الطلب #{{ $order->id }}</h2>
+            <div class="flex justify-between align-center gap-8">
+                <h2 class="text-3xl font-bold text-slate-800">تفاصيل الطلب #{{ $order->id }}</h2>
+                <div>
+                   <button class="cursor-pointer bg-primary-start hover:bg-primary-end text-white px-6 py-2 rounded-xl font-bold text-sm transition-all shadow-lg shadow-primary-start/20 transition-colors mb-4 inline-flex items-center text-sm font-medium" onclick="window.location.href = '{{ url('admin/invoice/' . $order->id . '/generate') }}'">
+                    تنزيل الفاتورة
+                   </button>
+                   <button class="cursor-pointer bg-amber-start text-dark px-6 py-2 rounded-xl font-bold text-sm transition-all shadow-lg shadow-primary-start/20 transition-colors mb-4 inline-flex items-center text-sm font-medium" onclick="window.location.href = '{{ url('admin/invoice/' . $order->id ) }}'">
+                    معاينة الفاتورة
+                   </button>
+                </div>
+            </div>
         </div>
         
         <!-- Status Update Form -->
