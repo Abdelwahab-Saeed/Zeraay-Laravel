@@ -138,11 +138,11 @@
                 <td width="70%">{{ $order->created_at }}</td>
 
                 <td width="30%">العنوان:</td>
-                <td width="70%">{{ $order->address }}</td>
+                <td width="70%">{{ $order->address ?? 'غير محدد' }}</td>
             </tr>
             <tr>
                 <td width="30%">طريقة الدفع:</td>
-                <td width="70%">{{ $order->paymentMethod->name }}</td>
+                <td width="70%">{{ $order->paymentMethod->name  ?? 'غير محدد'}}</td>
                 <td></td>
                 <td></td>
             </tr>
@@ -180,7 +180,7 @@
         <tfoot>
             <tr>
                 <td colspan="2" class="text-center total-heading">الخصم:</td>
-                <td colspan="3" class="text-center total-heading">{{ $order->discount_amount }}</td>
+                <td colspan="3" class="text-center total-heading">{{ $order->discount_amount ?? 0 }}</td>
             </tr>
             <tr>
                 <td colspan="2" class="text-center total-heading">الإجمالي:</td>
