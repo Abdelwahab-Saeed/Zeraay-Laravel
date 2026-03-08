@@ -78,9 +78,17 @@ class OrderController extends Controller
     {
         $request->validate([
             'status' => 'required|in:pending,processing,shipped,delivered,cancelled',
+            'shipping_price' => 'nullable|numeric|min:0',
         ]);
 
-        $order->update(['status' => $request->status]);
+        $shippingPrice = $request->shipping_price ?? $order->shipping_price ?? 0;
+        $finalAmount = $order->total_amount - $order->discount_amount + $shippingPrice;
+
+        $order->update([
+            'status' => $request->status,
+            'shipping_price' => $shippingPrice,
+            'final_amount' => $finalAmount,
+        ]);
 
         try {
             if($order->user->fcm_token) {

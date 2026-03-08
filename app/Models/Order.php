@@ -22,12 +22,14 @@ class Order extends Model
         'state',
         'notes',
         'pay_image',
+        'shipping_price',
     ];
 
     protected $casts = [
         'total_amount' => 'float',
         'discount_amount' => 'float',
         'final_amount' => 'float',
+        'shipping_price' => 'float',
     ];
 
     /**

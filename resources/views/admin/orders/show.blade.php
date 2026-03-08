@@ -34,24 +34,43 @@
                    <button class="cursor-pointer bg-amber-start text-dark px-6 py-2 rounded-xl font-bold text-sm transition-all shadow-lg shadow-primary-start/20 transition-colors mb-4 inline-flex items-center text-sm font-medium" onclick="window.location.href = '{{ url('admin/invoice/' . $order->id ) }}'">
                     معاينة الفاتورة
                    </button>
+                   <button class="cursor-pointer bg-slate-700 text-dark px-6 py-2 rounded-xl font-bold text-sm transition-all shadow-lg shadow-primary-start/20 transition-colors mb-4 inline-flex items-center text-sm font-medium" onclick="window.open('{{ url('admin/invoice/' . $order->id ) }}', '_blank').print()">
+                    طباعة الفاتورة
+                   </button>
                 </div>
             </div>
         </div>
         
-        <!-- Status Update Form -->
-        <div class="bg-white p-2 rounded-2xl shadow-sm border border-slate-100 flex items-center gap-2">
-            <form action="{{ route('admin.orders.update', $order) }}" method="POST" novalidate class="flex items-center gap-2">
+        <!-- Status & Shipping Update Form -->
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 flex flex-col md:flex-row items-end gap-6">
+            <form action="{{ route('admin.orders.update', $order) }}" method="POST" novalidate class="flex flex-col md:flex-row items-end gap-6 w-full">
                 @csrf
                 @method('PATCH')
-                <select name="status" class="px-4 py-2 rounded-xl border border-slate-200 focus:border-primary-start outline-none text-sm bg-slate-50 cursor-pointer">
-                    <option value="pending" {{ $order->status == 'pending' ? 'selected' : '' }}>قيد الانتظار</option>
-                    <option value="processing" {{ $order->status == 'processing' ? 'selected' : '' }}>قيد التنفيذ</option>
-                    <option value="shipped" {{ $order->status == 'shipped' ? 'selected' : '' }}>تم الشحن</option>
-                    <option value="delivered" {{ $order->status == 'delivered' ? 'selected' : '' }}>تم التوصيل</option>
-                    <option value="cancelled" {{ $order->status == 'cancelled' ? 'selected' : '' }}>ملغي</option>
-                </select>
-                <button type="submit" class="bg-primary-start hover:bg-primary-end text-white px-6 py-2 rounded-xl font-bold text-sm transition-all shadow-lg shadow-primary-start/20">
-                    تحديث الحالة
+                
+                <div class="w-full">
+                    <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 block">حالة الطلب</label>
+                    <div class="relative">
+                        <select name="status" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-primary-start outline-none text-sm bg-slate-50 cursor-pointer appearance-none">
+                            <option value="pending" {{ $order->status == 'pending' ? 'selected' : '' }}>قيد الانتظار</option>
+                            <option value="processing" {{ $order->status == 'processing' ? 'selected' : '' }}>قيد التنفيذ</option>
+                            <option value="shipped" {{ $order->status == 'shipped' ? 'selected' : '' }}>تم الشحن</option>
+                            <option value="delivered" {{ $order->status == 'delivered' ? 'selected' : '' }}>تم التوصيل</option>
+                            <option value="cancelled" {{ $order->status == 'cancelled' ? 'selected' : '' }}>ملغي</option>
+                        </select>
+                        <i class="fas fa-chevron-down absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none text-xs"></i>
+                    </div>
+                </div>
+
+                <div class="w-full md:w-48">
+                    <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 block">سعر الشحن</label>
+                    <div class="relative">
+                        <input type="number" name="shipping_price" step="0.01" value="{{ $order->shipping_price }}" placeholder="0.00" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-primary-start outline-none text-sm bg-slate-50 pl-12 text-left font-sans font-bold">
+                        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-[10px] text-slate-400 font-bold uppercase">ج.م</span>
+                    </div>
+                </div>
+
+                <button type="submit" class="bg-primary-start hover:bg-primary-end text-white px-8 py-2.5 rounded-xl font-bold text-sm transition-all shadow-lg shadow-primary-start/20 whitespace-nowrap h-[42px] mb-[1px]">
+                    حفظ التغييرات
                 </button>
             </form>
         </div>
@@ -104,6 +123,12 @@
                             <span class="font-bold">-{{ number_format($order->discount_amount, 2) }} ج.م</span>
                         </div>
                     @endif
+                    <div class="flex justify-between items-center text-slate-500">
+                        <span class="font-medium flex items-center">
+                            <i class="fas fa-truck ml-2 text-xs"></i> سعر الشحن
+                        </span>
+                        <span class="font-bold">+{{ number_format($order->shipping_price, 2) }} ج.م</span>
+                    </div>
                     <div class="flex justify-between items-center pt-3 border-t border-slate-200">
                         <span class="text-lg font-bold text-slate-800">الإجمالي النهائي</span>
                         <span class="text-2xl font-black text-primary-start font-sans">{{ number_format($order->final_amount, 2) }} ج.م</span>

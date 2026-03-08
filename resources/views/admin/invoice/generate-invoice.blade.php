@@ -186,6 +186,10 @@
                 <td colspan="3" class="text-center total-heading">{{ $order->discount_amount ?? 0 }}</td>
             </tr>
             <tr>
+                <td colspan="2" class="text-center total-heading">سعر الشحن:</td>
+                <td colspan="3" class="text-center total-heading">{{ $order->shipping_price ?? 0 }}</td>
+            </tr>
+            <tr>
                 <td colspan="2" class="text-center total-heading">الإجمالي:</td>
                 <td colspan="3" class="text-center total-heading">{{ $order->final_amount }}</td>
             </tr>
