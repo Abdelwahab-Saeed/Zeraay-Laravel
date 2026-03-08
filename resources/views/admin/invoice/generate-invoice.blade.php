@@ -97,8 +97,11 @@
     <table class="order-details">
         <thead>
             <tr>
-                <th width="50%" colspan="2">
-                    <h2 class="text-start">متجر زراعي</h2>
+                <th width="50%" colspan="2" class="text-center">
+                    <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+                        <h2 class="text-start">متجر زراعتي - شركة الخشبي</h2>
+                        <img src="{{ asset('assets/Plant Logo.png') }}" alt="Logo" width="100">
+                    </div>
                 </th>
                 <th width="50%" colspan="2" class="text-center company-data">
                     <span>رقم الفاتورة: #{{ $order->id }}</span> <br>
@@ -191,7 +194,10 @@
 
     <br>
     <p class="text-center">
-        شكراً لتسوقكم من متجر زراعي - Zeraty Store
+       شركة الخشبي للاسمده الزراعيه - انجال الحاج عبدالعزيز الخشبي
+    </p>
+    <p class="text-center">
+        إدارة الأستاذ/ محمود الخشبي
     </p>
 
 </body>
