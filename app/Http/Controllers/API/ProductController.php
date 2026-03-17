@@ -38,12 +38,14 @@ class ProductController extends Controller
                 $q->where('price', '<=', $request->max_price)
             )
 
+            ->when($request->filled('active_ingredient'), fn($q) =>
+                $q->where('active_ingredient', 'like', '%' . $request->active_ingredient . '%')
+            )
+
             // Search
-            ->when($request->filled('search'), function ($q) use ($request) {
+            ->when($request->filled('name'), function ($q) use ($request) {
                 $q->where(function ($sub) use ($request) {
-                    $sub->where('name', 'like', '%' . $request->search . '%')
-                        ->orWhere('description', 'like', '%' . $request->search . '%')
-                        ->orWhere('active_ingredient', 'like', '%' . $request->search . '%');
+                    $sub->where('name', 'like', '%' . $request->name . '%');
                 });
             })
             
