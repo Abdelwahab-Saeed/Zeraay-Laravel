@@ -51,6 +51,16 @@
                                 <p class="mt-1 text-xs text-rose-500 font-medium">{{ $message }}</p>
                             @enderror
                         </div>
+
+                        <div>
+                            <label for="active_ingredient" class="block text-sm font-bold text-slate-700 mb-2">المادة الفعالة</label>
+                            <input type="text" 
+                                   class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary-start focus:ring-4 focus:ring-primary-start/10 transition-all-300 outline-none @error('active_ingredient') border-rose-500 ring-rose-500/10 @enderror" 
+                                   id="active_ingredient" name="active_ingredient" value="{{ old('active_ingredient') }}" placeholder="أدخل المادة الفعالة">
+                            @error('active_ingredient')
+                                <p class="mt-1 text-xs text-rose-500 font-medium">{{ $message }}</p>
+                            @enderror
+                        </div>
                 <!-- Pricing & Stock Card -->
                 <div class="bg-white rounded-3xl shadow-sm border border-slate-100 p-8">
                     <h3 class="text-lg font-bold text-slate-800 mb-6 flex items-center">

@@ -27,6 +27,7 @@ class Product extends Model
         'status',
         'category_id',
         'company_id',
+        'active_ingredient',
     ];
 
     /**

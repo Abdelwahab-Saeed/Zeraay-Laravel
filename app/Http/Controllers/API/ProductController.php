@@ -42,7 +42,8 @@ class ProductController extends Controller
             ->when($request->filled('search'), function ($q) use ($request) {
                 $q->where(function ($sub) use ($request) {
                     $sub->where('name', 'like', '%' . $request->search . '%')
-                        ->orWhere('description', 'like', '%' . $request->search . '%');
+                        ->orWhere('description', 'like', '%' . $request->search . '%')
+                        ->orWhere('active_ingredient', 'like', '%' . $request->search . '%');
                 });
             })
             
@@ -84,6 +85,7 @@ class ProductController extends Controller
                 'id' => $product->id,
                 'name' => $product->name,
                 'description' => $product->description,
+                'active_ingredient' => $product->active_ingredient,
                 'image' => $product->image_url,
                 'price' => $product->price,
                 'discount_price' => $product->discount_price,
@@ -156,6 +158,7 @@ class ProductController extends Controller
                 'id' => $product->id,
                 'name' => $product->name,
                 'description' => $product->description,
+                'active_ingredient' => $product->active_ingredient,
                 'image' => $product->image_url,
                 'price' => $product->price,
                 'discount_price' => $product->discount_price,

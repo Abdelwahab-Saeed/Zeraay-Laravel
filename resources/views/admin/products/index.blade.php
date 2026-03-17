@@ -84,6 +84,9 @@
                         </td>
                         <td class="px-6 py-4">
                             <div class="font-bold text-slate-700 group-hover:text-primary-start transition-colors whitespace-nowrap">{{ $product->name }}</div>
+                            @if($product->active_ingredient)
+                                <div class="text-[10px] text-slate-400 font-medium mt-0.5">{{ $product->active_ingredient }}</div>
+                            @endif
                         </td>
                         <td class="px-6 py-4">
                             <span class="bg-slate-100 text-slate-600 text-xs px-2.5 py-1 rounded-lg font-bold whitespace-nowrap">

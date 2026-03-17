@@ -30,9 +30,12 @@ class ProductController extends Controller
             $query->where('status', $request->status);
         }
 
-        // Search by name
+        // Search by name or active_ingredient
         if ($request->filled('search')) {
-            $query->where('name', 'like', '%' . $request->search . '%');
+            $query->where(function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->search . '%')
+                    ->orWhere('active_ingredient', 'like', '%' . $request->search . '%');
+            });
         }
 
         $products = $query->latest()->paginate(10);

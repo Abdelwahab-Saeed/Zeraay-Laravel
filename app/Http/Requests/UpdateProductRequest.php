@@ -36,6 +36,7 @@ class UpdateProductRequest extends FormRequest
             'features.*' => 'required|string|max:255',
             'specifications' => 'nullable|array',
             'specifications.*' => 'required|string|max:255',
+            'active_ingredient' => 'nullable|string|max:255',
         ];
     }
 
@@ -57,6 +58,7 @@ class UpdateProductRequest extends FormRequest
             'status' => 'الحالة',
             'category_id' => 'الفئة',
             'company_id' => 'الشركة',
+            'active_ingredient' => 'المادة الفعالة',
         ];
     }
 
