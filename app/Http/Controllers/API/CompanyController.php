@@ -13,8 +13,7 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        $companies = Company::withCount('products')
-            ->paginate(15);
+        $companies = Company::withCount('products')->get();
 
         return response()->json([
             'success' => true,
@@ -28,12 +27,6 @@ class CompanyController extends Controller
                     'products_count' => $company->products_count,
                 ];
             }),
-            'pagination' => [
-                'current_page' => $companies->currentPage(),
-                'last_page' => $companies->lastPage(),
-                'per_page' => $companies->perPage(),
-                'total' => $companies->total(),
-            ],
         ]);
     }
 
